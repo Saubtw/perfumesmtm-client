@@ -1,0 +1,34 @@
+.combos-heading{display:flex;align-items:end;justify-content:space-between;gap:32px;margin-bottom:42px}
+.combos-heading h2{font:400 clamp(48px,6vw,80px)/1 var(--serif);margin:0;color:var(--paper);letter-spacing:-.025em}
+.combos-heading p{max-width:360px;margin:0;color:#bdc5b9;font-size:14px;line-height:1.8}
+.combos-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+.combo-card{--combo-tint:#1c2922;display:flex;flex-direction:column;min-width:0;border:1px solid #c5a46d4d;border-radius:8px;overflow:hidden;background:#14201d}
+.combo-tone-rose{--combo-tint:#2b2523}
+.combo-tone-brass{--combo-tint:#2b2a20}
+.combo-artwork{position:relative;display:flex;align-items:end;justify-content:center;min-height:252px;padding:64px 20px 18px;background:var(--combo-tint);overflow:hidden}
+.combo-piece-count{position:absolute;left:20px;top:24px;color:#d6dace;font-size:12px}
+.combo-savings{position:absolute;right:16px;top:16px;z-index:1;display:flex;align-items:center;gap:7px;padding:9px 12px;background:var(--brass);color:var(--forest);border-radius:3px;font-size:11px}
+.combo-savings strong{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.combo-photographs{display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
+.combo-photographs img{display:block;width:calc((100% - (var(--pieces) - 1)*6px)/var(--pieces));max-width:144px;height:164px;min-width:0;object-fit:cover;border-radius:4px;transform:rotate(var(--angle));box-shadow:0 10px 20px #0004;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.combo-card:hover .combo-photographs img,.combo-card:focus-within .combo-photographs img{transform:translateY(-5px) rotate(calc(var(--angle)*.6))}
+.combo-content{display:flex;flex-direction:column;flex:1;padding:26px 24px 24px;min-width:0}
+.combo-title-row{display:flex;align-items:start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.combo-title-row h3{font:400 30px/1.1 var(--serif);margin:0;letter-spacing:-.015em;text-wrap:balance}
+.combo-on-request{font-size:10px;white-space:nowrap;border:1px solid #c5a46d66;border-radius:3px;padding:5px 7px;color:#dcc18f}
+.combo-description{font-size:12px;line-height:1.75;color:#bdc5b9;margin:14px 0 20px;max-width:38ch}
+.combo-contents{display:grid;align-content:start;gap:12px;list-style:none;margin:0 0 24px;padding:0;flex:1}
+.combo-contents li{display:grid;gap:3px;font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.combo-contents small{font-size:10px;color:#a2aaa1}
+.combo-purchase{border-top:1px dashed #c5a46d66;padding-top:20px;margin-top:auto}
+.combo-price>span{font-size:10px;color:#bdc5b9}
+.combo-price>div{display:flex;align-items:baseline;flex-wrap:wrap;gap:12px;margin:7px 0 18px;font-variant-numeric:tabular-nums}
+.combo-price strong{font-size:26px;line-height:1.2;font-weight:600}
+.combo-price s{font-size:12px;color:#a2aaa1}
+.combo-add{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:48px;padding:13px 16px;border:1px solid var(--brass);border-radius:4px;background:var(--brass);color:var(--forest);font-size:12px;font-weight:700;cursor:pointer;transition:background .2s}
+.combo-add:hover{background:#dcc18f}
+.combo-add svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;fill:none}
+@media(max-width:1140px){.combos-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.combos-grid{grid-template-columns:1fr;gap:24px}.combos-heading{display:block;margin-bottom:30px}.combos-heading p{margin-top:20px;font-size:13px}.combo-artwork{min-height:244px}.combo-content{padding:24px}.combo-description{max-width:none}.combo-contents{gap:13px}.combo-title-row h3{font-size:30px}}
+@media(max-width:360px){.combo-content{padding:22px 18px}.combo-artwork{padding-right:16px;padding-left:16px;min-height:230px}.combo-photographs img{height:148px}.combo-savings{right:12px;padding:8px}.combo-piece-count{left:16px;font-size:11px}.combo-title-row h3{font-size:28px}}
+@media(prefers-reduced-motion:reduce){.combo-photographs img,.combo-add{transition:none}.combo-card:hover .combo-photographs img,.combo-card:focus-within .combo-photographs img{transform:rotate(var(--angle))}}
