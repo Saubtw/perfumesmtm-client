@@ -32,7 +32,7 @@ test('message includes actual quantities, accents, special characters and applie
   expect(cartTotals(lines)).toEqual({count:6,regular:3994,savings:398,total:3596});
   const url=whatsappUrl(lines,'María José');expect(url.startsWith('https://wa.me/528714750620?text=')).toBe(true);
   const message=new URL(url).searchParams.get('text');
-  expect(message).toContain('Éclat & L’Essence #1');expect(message).toContain('Cantidad: 2');expect(message).toContain('NUEVO PEDIDO DE "María José"');expect(message).toContain('$3,596.00 MXN');expect(message).toContain('_Dúo en pareja · 2 combos_');expect(message).toContain('Ahorro: $398.00');
+  expect(message).toContain('Éclat & L’Essence #1');expect(message).toContain('Cantidad: 2');expect(message).toContain('NUEVO PEDIDO DE "María José"');expect(message).toContain('$3,596.00 MXN');expect(message).toContain('_Sauvage & Good Girl · 2 combos_');expect(message).toContain('Ahorro: $398.00');
   expect(message).not.toMatch(/réplicas|envío|Hola,|Incluye:/i);expect(message).toContain('Quedo pendiente de la confirmación de mi pedido y ponernos de acuerdo con la entrega. Gracias.');
   expect(/\p{Extended_Pictographic}/u.test(message)).toBe(false);expect(lines).toHaveLength(2);
   const restored=restoreCart([{productIds:['special'],quantity:2,price:1}, {productIds:['special'],quantity:3}, {productIds:['missing'],quantity:1}, {productIds:['special'],quantity:-1}, null],catalog);
@@ -85,7 +85,7 @@ for(const width of [1440,768,390,320]) test(`cart, bundles and WhatsApp work at 
   await expect(page.locator('.cart-count')).toHaveText('4');
   await expect(page.locator('.cart-grand-total dd')).toHaveText('$2,198.00');await expect(page.locator('.cart-savings dd')).toHaveText('−$398.00');
   await page.locator('.checkout-button').click();await page.getByRole('button',{name:'Continuar a WhatsApp'}).click();calls=await page.evaluate(()=>window.checkoutCalls);
-  const message=new URL(calls[1][0]).searchParams.get('text');expect(message).toContain('NUEVO PEDIDO DE "María José"');expect(message).toContain('$2,198.00 MXN');expect(message).toContain('_Dúo esencial · 1 combo_');
+  const message=new URL(calls[1][0]).searchParams.get('text');expect(message).toContain('NUEVO PEDIDO DE "María José"');expect(message).toContain('$2,198.00 MXN');expect(message).toContain('_Cloud & Crystal · 1 combo_');
   expect(await page.locator('.cart-dialog').evaluate(el=>el.scrollWidth<=el.clientWidth)).toBe(true);
   const checkout=await page.locator('.checkout-button').boundingBox();expect(checkout.y+checkout.height).toBeLessThanOrEqual(900);
   await page.keyboard.press('Escape');await page.reload();

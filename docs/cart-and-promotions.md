@@ -12,16 +12,16 @@ La lista inicial incluye las ocho composiciones del Excel:
 
 | Combo | Precio MXN | Ahorro inicial MXN |
 | --- | ---: | ---: |
-| Dúo esencial: Cloud + Bright Crystal | 999 | 199 |
-| Dúo en pareja: Sauvage + Good Girl Eau de Parfum | 1,199 | 199 |
-| Día y noche: Y Eau de Parfum + Le Male Elixir | 1,199 | 199 |
-| Dúo nicho: Imagination + Baccarat Rouge 540 | 1,399 | 199 |
-| Trío a tu gusto: 212 VIP Black + Cloud + Bright Crystal | 1,399 | 448 |
-| Trío para citas: Le Beau Le Parfum + Donna Born in Roma Intense + Good Girl Blush | 1,799 | 348 |
-| Cuatro momentos: 212 VIP Black + Good Girl Eau de Parfum + Cloud + Bright Crystal | 1,999 | 547 |
-| Colección premium: Imagination + Baccarat Rouge 540 + Tobacco Vanille | 2,099 | 298 |
+| Cloud & Crystal: Cloud + Bright Crystal | 999 | 199 |
+| Sauvage & Good Girl: Sauvage + Good Girl Eau de Parfum | 1,199 | 199 |
+| Y & Le Male: Y Eau de Parfum + Le Male Elixir | 1,199 | 199 |
+| Imagination & Baccarat: Imagination + Baccarat Rouge 540 | 1,399 | 199 |
+| VIP · Cloud · Crystal: 212 VIP Black + Cloud + Bright Crystal | 1,399 | 448 |
+| Le Beau · Roma · Blush: Le Beau Le Parfum + Donna Born in Roma Intense + Good Girl Blush | 1,799 | 348 |
+| Herrera · Cloud · Crystal: 212 VIP Black + Good Girl Eau de Parfum + Cloud + Bright Crystal | 1,999 | 547 |
+| Imagination · Baccarat · Tobacco: Imagination + Baccarat Rouge 540 + Tobacco Vanille | 2,099 | 298 |
 
-Dúo nicho y Colección premium aparecen como «Bajo pedido», conforme al contexto del archivo. No se anuncia disponibilidad inmediata, envío gratuito ni fechas límite. Se conservan las fotografías originales sin fondos blancos añadidos a sus composiciones.
+Imagination & Baccarat y Imagination · Baccarat · Tobacco aparecen como «Bajo pedido», conforme al contexto del archivo. No se anuncia disponibilidad inmediata, envío gratuito ni fechas límite. Se conservan las fotografías originales sin fondos blancos añadidos a sus composiciones.
 
 ## Carrito y WhatsApp
 
