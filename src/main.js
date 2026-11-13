@@ -6,8 +6,20 @@ import { mountDetailMotion } from './detail-motion.js';
 import { mountCommerce } from './cart.js';
 import { money, isPriced } from './commerce.js';
 import {mountSortMenu} from './sort-menu.js';
+import {mountSmoothScroll} from './smooth-scroll.js';
 import './style.css';
 import './refinements.css';
+
+gsap.registerPlugin(ScrollTrigger);
+mountSmoothScroll(gsap, ScrollTrigger);
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const revealObserver = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    if (!entry.isIntersecting) continue;
+    entry.target.classList.add('is-revealed');
+    revealObserver.unobserve(entry.target);
+  }
+}, { rootMargin: '0px 0px 48px 0px', threshold: .01 });
 
 let catalog=[];
 try { catalog=await loadCatalog(); }
@@ -21,7 +33,6 @@ mountCommerce(catalog,{
   onAdded:openCart=>{if(!viewer.hidden) closeViewer({afterClose:openCart,restoreFocus:false,returnToCard:false});else openCart();}
 });
 
-gsap.registerPlugin(ScrollTrigger);
 const grid = document.querySelector('#catalog-grid');
 const resultCount = document.querySelector('#result-count');
 const search = document.querySelector('#search-input');
@@ -51,7 +62,7 @@ const tagMarkup = (tags) => tags.map(tag => `<span class="detail-tag">${escapeHT
 const svgArrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M7 5h12v12"/></svg>';
 
 function renderCatalog() {
-  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  revealObserver.disconnect();
   const query = search.value.trim().toLocaleLowerCase('es');
   let items = catalog.filter((item) => (activeFilter === 'all' || item.gender === activeFilter) && `${item.name} ${item.house}`.toLocaleLowerCase('es').includes(query));
   if (sort.value === 'az') items = [...items].sort((a, b) => a.name.localeCompare(b.name, 'es'));
@@ -67,7 +78,7 @@ function renderCatalog() {
       <div class="brand-grid">${products.map((item) => `
         <article class="product-item" data-id="${escapeHTML(item.id)}">
           <button class="product-visual" data-view="${catalog.indexOf(item)}" aria-label="Ver detalles de ${escapeHTML(item.name)}">
-            <img src="${escapeHTML(item.image)}" alt="${escapeHTML(item.name)} de ${escapeHTML(item.brand)}" loading="lazy" width="1000" height="1000" />
+            <img src="${escapeHTML(item.image)}" alt="${escapeHTML(item.name)} de ${escapeHTML(item.brand)}" loading="lazy" decoding="async" width="1000" height="1000" />
             <span class="visual-wash"></span><span class="visual-border"></span><span class="visual-index">${String(item.display_index).padStart(3,'0')} <i>—</i> 118</span>
             <span class="visual-tag">${item.gender === 'masculino' ? 'HOMBRE' : 'MUJER'}</span><span class="visual-open" aria-hidden="true">${svgArrow}</span>
           </button>
@@ -79,7 +90,8 @@ function renderCatalog() {
   document.querySelector('.results-caption').textContent=byPrice?'PERFUMES POR PRECIO':'PERFUMES POR MARCA';
   emptyState.hidden = items.length > 0;
   grid.hidden = false;
-  gsap.utils.toArray('.product-item').forEach((el) => ScrollTrigger.create({ trigger: el, start: 'top 92%', once: true, onEnter: () => gsap.fromTo(el, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, ease: 'expo.out' }) }));
+  if (!prefersReducedMotion) grid.querySelectorAll('.product-item').forEach(el => revealObserver.observe(el));
+  ScrollTrigger.refresh();
 }
 
 function showViewer(index) {
@@ -157,6 +169,7 @@ document.addEventListener('keydown', (event) => {
   }
 });
 renderCatalog();
+window.dispatchEvent(new Event('catalog-ready'));
 const header=document.querySelector('.site-header');
 new IntersectionObserver(([entry])=>header.classList.toggle('is-scrolled',!entry.isIntersecting),{rootMargin:'-76px 0px 0px 0px'}).observe(document.querySelector('.hero'));
 const currentProduct=()=>!viewer.hidden ? catalog[activeViewerIndex]?.id ?? null : null;
@@ -164,13 +177,13 @@ function openProduct(id) {const index=catalog.findIndex(p=>p.id===id);if(index>=
 function openHashProduct() {if(location.hash.startsWith('#perfume=')) {try {openProduct(decodeURIComponent(location.hash.slice(9)));} catch { /* Invalid links do not break browsing. */ }}}
 window.addEventListener('hashchange',openHashProduct);openHashProduct();
 mountChat({currentProduct,openProduct});
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function animateIntro() {
 if (!prefersReducedMotion) {
   const intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
   intro.from('.site-header', { y: -18, autoAlpha: 0, duration: 0.7 }).from('.hero-note, .hero h1, .hero-description, .hero-cta', { y: 28, autoAlpha: 0, duration: 0.85, stagger: 0.11 }, '-=0.28').from('.hero-index, .hero-bottom', { autoAlpha: 0, duration: 0.6 }, '-=0.35');
   gsap.to('.hero-copy', { yPercent: -13, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.65 } });
   gsap.from('.closing h2', { y: 35, autoAlpha: 0, duration: 0.9, ease: 'expo.out', scrollTrigger: { trigger: '.closing', start: 'top 76%', once: true } });
 } else gsap.set('.site-header, .hero-note, .hero h1, .hero-description, .hero-cta, .hero-index, .hero-bottom, .closing h2', { clearProps: 'all' });
-const canvas = document.querySelector('#scene-canvas');
-if (canvas) import('./scene.js').then(({ mountPerfumeScene }) => mountPerfumeScene(canvas, { reducedMotion: prefersReducedMotion })).catch(() => document.documentElement.classList.add('webgl-fallback'));
-else document.documentElement.classList.add('webgl-fallback');
+}
+if (document.documentElement.classList.contains('is-loading')) window.addEventListener('startup-complete', animateIntro, { once: true });
+else animateIntro();

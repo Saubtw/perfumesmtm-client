@@ -1,4 +1,8 @@
 /* Compact editorial offers, gold lettering and native-surface details. */
+/* One viewport observer replaces 118 scroll-linked timelines. Only animate on entry. */
+@keyframes product-reveal{from{opacity:.2;transform:translate3d(0,18px,0)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:no-preference){.product-item.is-revealed{animation:product-reveal .5s cubic-bezier(.16,1,.3,1) both}}
+html.lenis.lenis-smooth{scroll-behavior:auto}
 :root{scrollbar-color:#c5a46d #101815;scrollbar-width:thin}
 *{scrollbar-width:thin;scrollbar-color:#c5a46d #101815}
 ::-webkit-scrollbar{width:9px;height:9px}
