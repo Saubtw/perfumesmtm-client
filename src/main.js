@@ -7,19 +7,15 @@ import { mountCommerce } from './cart.js';
 import { money, isPriced } from './commerce.js';
 import {mountSortMenu} from './sort-menu.js';
 import {mountSmoothScroll} from './smooth-scroll.js';
+import {mountCatalogMotion} from './catalog-motion.js';
+import {mountBrandNavigation} from './brand-navigation.js';
+import {mountCatalogScroll} from './catalog-scroll.js';
 import './style.css';
 import './refinements.css';
 
 gsap.registerPlugin(ScrollTrigger);
-mountSmoothScroll(gsap, ScrollTrigger);
+const smoothScroll = mountSmoothScroll(gsap, ScrollTrigger);
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const revealObserver = new IntersectionObserver(entries => {
-  for (const entry of entries) {
-    if (!entry.isIntersecting) continue;
-    entry.target.classList.add('is-revealed');
-    revealObserver.unobserve(entry.target);
-  }
-}, { rootMargin: '0px 0px 48px 0px', threshold: .01 });
 
 let catalog=[];
 try { catalog=await loadCatalog(); }
@@ -34,6 +30,9 @@ mountCommerce(catalog,{
 });
 
 const grid = document.querySelector('#catalog-grid');
+const catalogMotion = mountCatalogMotion(grid);
+const brandNavigation = mountBrandNavigation(grid, smoothScroll);
+const catalogScroll = mountCatalogScroll(grid, smoothScroll);
 const resultCount = document.querySelector('#result-count');
 const search = document.querySelector('#search-input');
 const sort = document.querySelector('#sort-select');
@@ -62,7 +61,7 @@ const tagMarkup = (tags) => tags.map(tag => `<span class="detail-tag">${escapeHT
 const svgArrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M7 5h12v12"/></svg>';
 
 function renderCatalog() {
-  revealObserver.disconnect();
+  catalogMotion.reset();
   const query = search.value.trim().toLocaleLowerCase('es');
   let items = catalog.filter((item) => (activeFilter === 'all' || item.gender === activeFilter) && `${item.name} ${item.house}`.toLocaleLowerCase('es').includes(query));
   if (sort.value === 'az') items = [...items].sort((a, b) => a.name.localeCompare(b.name, 'es'));
@@ -74,7 +73,7 @@ function renderCatalog() {
   const groups=byPrice?[[sort.value==='price-asc'?'Precio: menor a mayor':'Precio: mayor a menor',items]]:[...brands.entries()];
   const sections = groups.map(([brand, products]) => `
     <section class="brand-section" aria-label="${escapeHTML(brand)}">
-      <header class="brand-heading"><div><span class="brand-kicker">${byPrice?'ORDEN POR PRECIO':'MARCA'} · ${escapeHTML(products.length)} ${products.length === 1 ? 'PIEZA' : 'PIEZAS'}</span><h3>${escapeHTML(brand)}</h3></div><span class="brand-rule"></span><span class="brand-total">${String(products.length).padStart(2,'0')}</span></header>
+      <header class="brand-heading"><h3>${escapeHTML(brand)}</h3></header>
       <div class="brand-grid">${products.map((item) => `
         <article class="product-item" data-id="${escapeHTML(item.id)}">
           <button class="product-visual" data-view="${catalog.indexOf(item)}" aria-label="Ver detalles de ${escapeHTML(item.name)}">
@@ -90,7 +89,9 @@ function renderCatalog() {
   document.querySelector('.results-caption').textContent=byPrice?'PERFUMES POR PRECIO':'PERFUMES POR MARCA';
   emptyState.hidden = items.length > 0;
   grid.hidden = false;
-  if (!prefersReducedMotion) grid.querySelectorAll('.product-item').forEach(el => revealObserver.observe(el));
+  catalogMotion.refresh();
+  brandNavigation.refresh();
+  catalogScroll.refresh();
   ScrollTrigger.refresh();
 }
 
@@ -170,8 +171,6 @@ document.addEventListener('keydown', (event) => {
 });
 renderCatalog();
 window.dispatchEvent(new Event('catalog-ready'));
-const header=document.querySelector('.site-header');
-new IntersectionObserver(([entry])=>header.classList.toggle('is-scrolled',!entry.isIntersecting),{rootMargin:'-76px 0px 0px 0px'}).observe(document.querySelector('.hero'));
 const currentProduct=()=>!viewer.hidden ? catalog[activeViewerIndex]?.id ?? null : null;
 function openProduct(id) {const index=catalog.findIndex(p=>p.id===id);if(index>=0) openViewer(index);}
 function openHashProduct() {if(location.hash.startsWith('#perfume=')) {try {openProduct(decodeURIComponent(location.hash.slice(9)));} catch { /* Invalid links do not break browsing. */ }}}

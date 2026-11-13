@@ -11,7 +11,8 @@ export function mountSmoothScroll(gsap, ScrollTrigger) {
     lenis = null;
     if (media.matches) return;
     lenis = new Lenis({
-      lerp: .1,
+      lerp: .16,
+      wheelMultiplier: .75,
       smoothWheel: true,
       syncTouch: false,
       anchors: { offset: -90 },
@@ -28,4 +29,13 @@ export function mountSmoothScroll(gsap, ScrollTrigger) {
     lenis?.destroy();
     media.removeEventListener('change', configure);
   }, { once: true });
+  return {
+    isScrolling: () => Boolean(lenis?.isScrolling),
+    cancelScroll() { lenis?.scrollTo(window.scrollY, { immediate: true }); },
+    scrollTo(target, offset = 106, options = {}) {
+      const top = typeof target === 'number' ? target : scrollY + target.getBoundingClientRect().top - offset;
+      if (lenis) lenis.scrollTo(top, { duration: 1.65, lerp: 0, easing: t => 1 - Math.pow(1 - t, 3), ...options });
+      else { window.scrollTo({ top, behavior: 'instant' }); options.onComplete?.(); }
+    }
+  };
 }

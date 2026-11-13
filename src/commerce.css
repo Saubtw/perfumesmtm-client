@@ -1,5 +1,5 @@
 .cart-open{overflow:hidden}
-body .site-header{position:fixed;background:#101815ed}
+body .site-header{position:absolute;background:#101815ed}
 .header-cart{display:inline-flex;align-items:center;gap:9px;background:none;border:1px solid #c5a46d66;border-radius:4px;padding:10px 12px;cursor:pointer;font-size:12px;transition:background .2s,color .2s}
 .header-cart:hover{background:var(--paper);color:var(--forest)}
 .header-cart svg,.checkout-button svg,.commerce-button svg{width:20px;height:20px;flex-shrink:0}
