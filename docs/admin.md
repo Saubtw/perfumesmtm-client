@@ -77,4 +77,8 @@ Para ejecutar la prueba real se requieren `MTM_ADMIN_EMAIL` y `MTM_ADMIN_PASSWOR
 
 ## Publicación
 
-Construir cliente y API con `npm run build`. Vercel debe publicar la API y el cliente actualizados; `client/vercel.json` resuelve `/dashboard-admin` a la aplicación y mantiene el proxy existente `/api`. Las variables privadas de Supabase ya usadas por la API son suficientes, sin exponer claves nuevas al navegador. El cambio de base está aplicado; la interfaz requiere publicar los nuevos builds. En esta sesión Vercel no tenía una sesión CLI y la conexión GitHub ofrecía lectura sin permiso de push.
+Publicado el 14 de noviembre de 2026 en los repositorios existentes y desplegado automáticamente por Vercel. Acceso: [panel privado](https://perfumesmtm-client.vercel.app/dashboard-admin). `client/vercel.json` resuelve la ruta directa y mantiene el proxy `/api`. La API usa las variables privadas existentes de Supabase, sin claves nuevas en el navegador.
+
+La publicación de código corresponde a API `ecde84d` y cliente `5288159`. Ambos despliegues se confirmaron exitosos por el estado de GitHub/Vercel. La prueba real `scripts/verify-admin-production.mjs` confirmó ruta directa, inicio/cierre de sesión de propietario, cookie Secure/HttpOnly, resultados iniciales, ajustes de correo, las dos imágenes, catálogo de 16 referencias, ausencia de enlace público al panel, ancho móvil y ausencia de errores de navegador. No se registraron ventas de prueba en producción.
+
+Para cambios futuros: construir con `npm run build` y publicar en los mismos repositorios. Las migraciones ya están aplicadas; no volver a ejecutar la carga inicial sobre el inventario operativo.
