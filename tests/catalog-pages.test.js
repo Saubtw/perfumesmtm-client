@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures/storefront.js';
 
 for(const width of [1440,390,320]) test(`bounded catalog, page navigation and global filters at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:1000});await page.goto('/');

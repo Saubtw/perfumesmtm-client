@@ -1,10 +1,10 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { loadCatalog } from './api.js';
+import { loadCatalog, api } from './api.js';
 import { mountChat } from './chat.js';
 import { mountDetailMotion } from './detail-motion.js';
 import { mountCommerce } from './cart.js';
-import { money, isPriced } from './commerce.js';
+import { money, isPriced, setPromotions } from './commerce.js';
 import {mountSortMenu} from './sort-menu.js';
 import {mountSmoothScroll} from './smooth-scroll.js';
 import {mountCatalogMotion} from './catalog-motion.js';
@@ -18,7 +18,10 @@ const smoothScroll = mountSmoothScroll(gsap, ScrollTrigger);
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let catalog=[];
-try { catalog=await loadCatalog(); }
+try {
+  catalog=await loadCatalog();const offers=(await api('/storefront')).promotions;setPromotions(offers);
+  document.querySelectorAll('a[href="#promociones"]').forEach(link=>{link.hidden=!offers.length;});
+}
 catch {
   const alert=document.createElement('p');alert.setAttribute('role','alert');alert.textContent='No se pudo cargar la colección. ';
   const retry=document.createElement('button');retry.textContent='Volver a intentar';retry.onclick=()=>location.reload();alert.append(retry);document.querySelector('#catalog-grid').before(alert);
@@ -59,6 +62,8 @@ const detailMotion = mountDetailMotion(viewer, () => {
   return [...grid.querySelectorAll('.product-item')].find(card => card.dataset.id === catalog[activeViewerIndex]?.id)?.querySelector('.product-visual');
 },()=>detailLayer.close());
 const counts = { all: catalog.length, masculino: catalog.filter(x => x.gender === 'masculino').length, femenino: catalog.filter(x => x.gender === 'femenino').length };
+document.querySelector('.collection-end > span:nth-child(2)').textContent=`${catalog.length} / ${catalog.length}`;
+document.querySelector('.intro-aside').textContent=`Explora ${catalog.length} perfumes y consulta sus notas, familia olfativa y ocasiones recomendadas.`;
 document.querySelectorAll('.filter-button').forEach((button) => { button.querySelector('span').textContent = counts[button.dataset.filter]; });
 
 const escapeHTML = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[c]);
@@ -87,7 +92,7 @@ function renderCatalog() {
         <article class="product-item" data-id="${escapeHTML(item.id)}">
           <button class="product-visual" data-view="${catalog.indexOf(item)}" aria-label="Ver detalles de ${escapeHTML(item.name)}">
             <img src="${escapeHTML(item.image)}" alt="${escapeHTML(item.name)} de ${escapeHTML(item.brand)}" loading="lazy" decoding="async" width="1000" height="1000" />
-            <span class="visual-wash"></span><span class="visual-border"></span><span class="visual-index">${String(item.display_index).padStart(3,'0')} <i>—</i> 118</span>
+            <span class="visual-wash"></span><span class="visual-border"></span><span class="visual-index">${String(catalog.indexOf(item)+1).padStart(3,'0')} <i>—</i> ${catalog.length}</span>
             <span class="visual-tag">${item.gender === 'masculino' ? 'HOMBRE' : 'MUJER'}</span><span class="visual-open" aria-hidden="true">${svgArrow}</span>
           </button>
           <div class="product-meta"><div><p class="product-house">${escapeHTML(item.brand)}</p><h4>${escapeHTML(item.name)}</h4><button class="product-detail-link" data-view="${catalog.indexOf(item)}">Ver ficha <span aria-hidden="true">↗</span></button></div><span class="product-number">${String(item.display_index).padStart(3,'0')}</span></div>
@@ -117,7 +122,7 @@ function showViewer(index) {
   image.src = item.image; image.alt = `${item.name} de ${item.brand}`;
   viewer.querySelector('.detail-brand').textContent = item.brand;
   viewer.querySelector('.detail-title').textContent = item.name;
-  viewer.querySelector('.detail-index').textContent = `${String(item.display_index).padStart(3,'0')} / 118`;
+  viewer.querySelector('.detail-index').textContent = `${String(activeViewerIndex+1).padStart(3,'0')} / ${catalog.length}`;
   viewer.querySelector('.detail-family').innerHTML = tagMarkup(splitTags(detail.family));
   viewer.querySelector('.detail-smell').textContent = plainText(detail.summary || detail.smell).split(/(?<=[.!?])\s/)[0] || 'Descripción olfativa pendiente de verificación.';
   viewer.querySelector('.detail-occasion').innerHTML = tagMarkup(splitTags(plainText(detail.occasion).split(/[.!?]/)[0]).slice(0, 4));

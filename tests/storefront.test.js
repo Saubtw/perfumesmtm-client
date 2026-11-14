@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures/storefront.js';
 for (const width of [1440,390]) test(`notes preserve modal bounds and card motion reverses at ${width}px`,async({page})=>{
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.setViewportSize({width,height:900});

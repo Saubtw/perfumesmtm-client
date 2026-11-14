@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures/storefront.js';
 
 for(const width of [1440,1024,390]) test(`all brands remain reachable without a long brand index at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:900});await page.goto('/');

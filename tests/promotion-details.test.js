@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures/storefront.js';
 
 for(const width of [1440,390,320]) test(`promotion filters and pricing remain clear at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:1000});
@@ -24,6 +24,8 @@ for(const width of [1440,390,320]) test(`promotion filters and pricing remain cl
 for(const width of [1440,390]) test(`every promotion product opens its own detail and returns focus at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:900});
   await page.goto('/');
+  await expect(page.locator('.startup-loader')).toHaveCount(0);
+  await page.evaluate(()=>document.fonts.ready);
   const products=page.locator('[data-combo-product]');
   await expect(products).toHaveCount(21);
   for(let i=0;i<await products.count();i++) {

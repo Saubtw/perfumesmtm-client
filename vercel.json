@@ -10,6 +10,7 @@
     {"source":"/assets/:path*","headers":[{"key":"Cache-Control","value":"public, max-age=31536000, immutable"}]}
   ],
   "rewrites": [
+    {"source":"/dashboard-admin","destination":"/index.html"},
     {
       "source": "/api/:path*",
       "destination": "https://perfumesmtm-api.vercel.app/api/:path*"

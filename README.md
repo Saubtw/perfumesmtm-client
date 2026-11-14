@@ -28,3 +28,7 @@ Playwright inicia ambos servidores, o reutiliza los que ya estén corriendo. Sin
 `src/combos.js` es la lista manual: `enabled`, precio, composición exacta y orden de publicación. No se generan promociones automáticamente. Los precios individuales provienen de la API. Cualquier acción de agregar muestra el carrito; agregar desde una ficha cierra primero esa ficha. WhatsApp solicita únicamente el nombre y mantiene la selección después de abrirse.
 
 Consultar `docs/cart-and-promotions.md` para las reglas de paquetes y restauración. Las fotografías y modelos necesarios están incluidos en `public/`. Las credenciales y las bases de datos no forman parte del repositorio.
+
+## Administración privada
+
+Panel `/dashboard-admin` con catálogo reversible, marcas y combos editables, stock, costos y resultados, y cuentas con permisos. El catálogo inicial publica solo los 16 perfumes comerciales. Consulta [la guía](docs/admin.md).

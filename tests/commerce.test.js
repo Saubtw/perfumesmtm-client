@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures/storefront.js';
 import {readFileSync} from 'node:fs';
 import {promotions,createLine,cartTotals,restoreCart,whatsappUrl,fixedProducts,whatsappMessage} from '../src/commerce.js';
 

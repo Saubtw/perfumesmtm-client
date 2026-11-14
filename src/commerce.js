@@ -1,6 +1,7 @@
 import {combos} from './combos.js';
 // This explicit owner-managed list is the only source of published offers.
 export const promotions = combos.filter(combo=>combo.enabled);
+export function setPromotions(items){promotions.splice(0,promotions.length,...items);}
 export const money = value => new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',minimumFractionDigits:2}).format(value);
 export const isPriced = product => Number.isSafeInteger(product?.price) && product.price > 0;
 export function fixedProducts(promotion, catalog) {
