@@ -57,7 +57,7 @@ test('only owner-configured compositions receive discounts and previous custom s
 for(const width of [1440,768,390,320]) test(`cart, bundles and WhatsApp work at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:900});
   await page.addInitScript(()=>{window.checkoutCalls=[];window.open=(...args)=>{window.checkoutCalls.push(args);return null;};});
-  await page.goto('/');await expect(page.locator('.product-item')).toHaveCount(118);
+  await page.goto('/');await expect(page.locator('.product-item')).toHaveCount(width<=620?4:12);
   expect(await page.locator('#promociones').evaluate(el=>el.compareDocumentPosition(document.querySelector('#coleccion'))&Node.DOCUMENT_POSITION_FOLLOWING)).toBeTruthy();
   await page.locator('#cart-open').click();
   await expect(page.locator('.checkout-button')).toBeDisabled();
@@ -134,7 +134,7 @@ test('the eight fixed Excel offers have exact compositions and savings, and each
     await expect(card.locator('.combo-contents li')).toHaveCount(offer.count);
     for(const p of items) await expect(card.locator('.combo-contents')).toContainText(p.name);
     await expect(card.locator('.combo-price strong')).toHaveText(`$${offer.price.toLocaleString('en-US')}.00`);
-    await expect(card.locator('.combo-savings strong')).toHaveText(`$${regular-offer.price}`);
+    await expect(card.locator('.combo-savings')).toHaveText(`Ahorras $${(regular-offer.price).toLocaleString('en-US')}.00 al llevarlos juntos`);
     await card.locator('[data-fixed]').click();
     if(offer!==promotions.at(-1)) await page.locator('.cart-close').click();
   }

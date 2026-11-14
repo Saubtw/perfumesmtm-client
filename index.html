@@ -3,20 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#14201d" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
-    <link rel="preload" as="fetch" href="/models/hero-perfume.glb" crossorigin />
-    <link rel="preload" as="fetch" href="/models/hero-companion.glb" crossorigin />
-    <link rel="preload" as="fetch" href="/models/hero-heel.glb" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
     <style>
       .startup-loader{display:none}
       .is-loading .startup-loader{display:grid}
-      .startup-loader{position:fixed;inset:0;z-index:10000;place-content:center;justify-items:center;gap:24px;background:#14201d;color:#e8cea1;transition:opacity .18s ease;pointer-events:none;animation:startup-dismiss .18s 1.8s forwards}
+      .startup-loader{position:fixed;inset:0;z-index:10000;place-content:center;justify-items:center;gap:24px;background:#fff;color:#25262a;transition:opacity .18s ease;pointer-events:none;animation:startup-dismiss .18s 1.8s forwards}
       .startup-loader strong{font:500 clamp(18px,4vw,28px)/1.2 Arial,sans-serif;letter-spacing:.24em}
-      .startup-loader span{font:10px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#c4c8bf}
-      .startup-loader::after{content:'';width:144px;height:1px;background:#c5a46d;transform-origin:left;animation:startup-progress 1.6s cubic-bezier(.16,1,.3,1) both}
+      .startup-loader span{font:10px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#62636a}
+      .startup-loader::after{content:'';width:144px;height:1px;background:#25262a;transform-origin:left;animation:startup-progress 1.6s cubic-bezier(.16,1,.3,1) both}
       .is-loading #app{visibility:hidden;animation:startup-reveal 0s 1.8s forwards}
       @keyframes startup-progress{from{transform:scaleX(.06)}to{transform:scaleX(1)}}
       @keyframes startup-dismiss{to{opacity:0;visibility:hidden}}
@@ -53,11 +50,10 @@
       </header>
       <main>
         <section class="hero" id="inicio" aria-labelledby="hero-title">
-          <div class="hero-scene" aria-hidden="true"><canvas id="scene-canvas"></canvas></div>
           <div class="hero-copy">
             
-            <h1 id="hero-title" aria-label="PERFUMES MTM" data-title="PERFUMES MTM"><span class="hero-title-fill">PERFUMES MTM</span></h1>
-            <p class="hero-description">Consulta perfumes por marca, notas y ocasión. Compara sus perfiles y encuentra opciones según tus preferencias.</p>
+            <h1 id="hero-title"><span class="hero-title-fill">Tu próxima<br>fragancia.</span></h1>
+            <p class="hero-description">Encuentra la que va contigo. Explora por marca, descubre sus notas y elige tu próximo perfume.</p>
             <a class="hero-cta" href="#coleccion"><span>Explorar catálogo</span><span class="cta-arrow">↓</span></a>
           </div>
           
@@ -66,8 +62,7 @@
         <section id="promociones" class="promotions" aria-label="Promociones y combos"></section>
         <section class="collection" id="coleccion" aria-labelledby="collection-title">
           <div class="collection-intro">
-            <div class="section-heading"><span class="section-mark"></span><p class="section-label">CATÁLOGO DE PERFUMES</p></div>
-            <div class="intro-row"><h2 id="collection-title">Catálogo</h2><p class="intro-aside">Explora las 118 referencias y consulta sus notas, familia olfativa y ocasiones recomendadas.</p></div>
+              <div class="intro-row"><h2 id="collection-title">Catálogo</h2><p class="intro-aside">Explora las 118 referencias y consulta sus notas, familia olfativa y ocasiones recomendadas.</p></div>
           </div>
           <div class="collection-toolbar">
             <label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.2 4.2"></path></svg><input id="search-input" type="search" placeholder="Buscar fragancia o casa" autocomplete="off" aria-label="Buscar en la colección" /><kbd>/</kbd></label>

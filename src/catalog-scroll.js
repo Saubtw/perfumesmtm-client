@@ -5,7 +5,7 @@ export function mountCatalogScroll(grid, smoothScroll) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let stops = [], timer, armed = false, settling = false, touching = false;
   let previous = scrollY, direction = 1;
-  const offset = () => matchMedia('(min-width: 1200px) and (min-height: 720px)').matches ? 24 : 86;
+  const offset = () => matchMedia('(min-width: 1024px)').matches ? 24 : 86;
   const blocked = target => target.closest('input,textarea,select,dialog,[contenteditable="true"],.sort-menu') || document.querySelector('dialog[open]');
 
   function cancel() {

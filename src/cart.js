@@ -110,7 +110,7 @@ export function mountCommerce(catalog,{openProduct,onAdded}={}) {
     if(button&&!button.disabled) {add([button.dataset.addProduct]);if(button.closest('#image-viewer')) button.disabled=true;}
   });
   render();
-  mountPromotions(catalog,add);
+  mountPromotions(catalog,add,openProduct);
   if(migrated) {persist();notify('Los combos cambiaron. Conservamos tus perfumes a precio individual; revisa tu carrito.');}
   return {add};
 }

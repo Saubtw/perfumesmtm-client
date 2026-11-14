@@ -1,0 +1,32 @@
+.brand-explorer{margin:0 0 24px;min-width:0}
+.brand-explorer>header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:12px}
+.brand-explorer h3{margin:0;font:500 20px/1.3 var(--sans);letter-spacing:-.02em;color:var(--ink)}
+.brand-explorer-controls{display:flex;gap:6px}
+.brand-explorer-controls button{display:grid;place-items:center;width:44px;height:44px;border:1px solid #d9ded0;border-radius:4px;background:#fff;color:var(--ink);cursor:pointer}
+.brand-explorer-controls button:hover:not(:disabled){background:#e8eddc}
+.brand-explorer-controls button:disabled{opacity:.4;cursor:default}
+.brand-explorer-controls svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5}
+.brand-logo-track{overflow-x:auto;padding:5px 5px 12px;scroll-padding-inline:5px;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#91958b #f3f4ee;overflow-anchor:none}
+.brand-logo-track::-webkit-scrollbar{height:8px}
+.brand-logo-track::-webkit-scrollbar-track{background:#f3f4ee}
+.brand-logo-track::-webkit-scrollbar-thumb{background:#91958b;border-radius:4px}
+.brand-logo-belt{display:flex;width:max-content;gap:12px;will-change:transform}
+.brand-logo-group{display:grid;grid-template-rows:repeat(2,auto);grid-auto-flow:column;grid-auto-columns:150px;gap:10px 12px;flex:none}
+.brand-explorer-heading{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-width:0}
+.brand-filter-clear{display:inline-flex;align-items:center;min-height:36px;padding:6px 10px;max-width:100%;border:1px solid #d9ded0;border-radius:4px;background:#e8eddc;color:#293323;font:500 12px/1.4 var(--sans);cursor:pointer;text-align:left}
+.brand-filter-clear:hover{background:#d9ded0}
+.brand-filter-clear[hidden]{display:none}
+.brand-logo-button{flex:0 0 150px;min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:5px;padding:10px;border:1px solid #d9ded0;border-radius:6px;background:#fff;color:var(--ink);font-family:var(--sans);cursor:pointer;scroll-snap-align:start;text-align:center}
+.brand-logo-button:hover{background:#f5f6ef;border-color:#50643e}
+.brand-logo-button[aria-pressed=true]{background:#e8eddc;border-color:#50643e;box-shadow:inset 0 0 0 1px #50643e}
+.brand-logo-art{height:48px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:3px;color:#293323;font-size:22px;font-weight:600;padding:6px;overflow:hidden}
+.brand-logo-art img{width:100%;height:100%;object-fit:contain;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.brand-logo-button:hover .brand-logo-art img{transform:scale(1.045)}}
+.brand-logo-button{transition:background-color .25s,border-color .25s}
+.brand-logo-dark{background:#293323}
+.brand-logo-name{font-size:12px;font-weight:600;line-height:1.3;min-height:32px;display:grid;place-items:center;overflow-wrap:anywhere}
+.brand-logo-count{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.brand-explorer-selection{font-size:12px;line-height:1.5;color:var(--muted);margin:8px 0 0}
+@media(max-width:620px){.brand-explorer{margin-bottom:20px}.brand-explorer h3{font-size:18px}.brand-logo-belt{gap:8px}.brand-logo-group{gap:8px;grid-auto-columns:124px}.brand-logo-button{padding:8px}.brand-logo-art{height:42px}.brand-explorer-controls{flex-shrink:0}.brand-explorer-heading{gap:6px}}
+@media(prefers-reduced-motion:reduce){.brand-logo-art img,.brand-logo-button{transition:none}.brand-motion-toggle{display:none!important}}
+@media(max-width:620px),(hover:none) and (pointer:coarse){.brand-explorer-controls{display:none}}

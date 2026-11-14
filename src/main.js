@@ -8,10 +8,10 @@ import { money, isPriced } from './commerce.js';
 import {mountSortMenu} from './sort-menu.js';
 import {mountSmoothScroll} from './smooth-scroll.js';
 import {mountCatalogMotion} from './catalog-motion.js';
-import {mountBrandNavigation} from './brand-navigation.js';
-import {mountCatalogScroll} from './catalog-scroll.js';
+import {mountBrandExplorer,brandHouse} from './brand-explorer.js';
 import './style.css';
 import './refinements.css';
+import './catalog-pages.css';
 
 gsap.registerPlugin(ScrollTrigger);
 const smoothScroll = mountSmoothScroll(gsap, ScrollTrigger);
@@ -26,13 +26,19 @@ catch {
 const perfumeDetails=Object.fromEntries(catalog.map(item=>[item.id,item.olfactory ?? {}]));
 mountCommerce(catalog,{
   openProduct:(id,trigger)=>{const index=catalog.findIndex(p=>p.id===id);if(index>=0) openViewer(index,trigger);},
-  onAdded:openCart=>{if(!viewer.hidden) closeViewer({afterClose:openCart,restoreFocus:false,returnToCard:false});else openCart();}
+  onAdded:openCart=>{if(!viewer.hidden) closeViewer({afterClose:()=>{document.querySelector('#cart-open').focus({preventScroll:true});openCart();},restoreFocus:false,returnToCard:false});else openCart();}
 });
 
 const grid = document.querySelector('#catalog-grid');
 const catalogMotion = mountCatalogMotion(grid);
-const brandNavigation = mountBrandNavigation(grid, smoothScroll);
-const catalogScroll = mountCatalogScroll(grid, smoothScroll);
+const compactCatalog=matchMedia('(max-width:620px)');
+let catalogPage=1;
+const brandSelect=mountBrandExplorer(catalog,document.querySelector('.collection-toolbar'),()=>resetCatalogPage());
+const pageBars=[0].map(position=>{
+  const nav=document.createElement('nav');nav.className='catalog-pagination';nav.setAttribute('aria-label',position?'Páginas del catálogo al pie':'Páginas del catálogo');
+  if(position) grid.after(nav);else grid.before(nav);
+  return nav;
+});
 const resultCount = document.querySelector('#result-count');
 const search = document.querySelector('#search-input');
 const sort = document.querySelector('#sort-select');
@@ -47,6 +53,7 @@ const detailLayer=document.createElement('dialog');detailLayer.className='detail
 viewer.before(detailLayer);detailLayer.append(viewer);viewer.removeAttribute('role');viewer.removeAttribute('aria-modal');
 detailLayer.addEventListener('cancel',event=>{event.preventDefault();closeViewer();});
 const detailMotion = mountDetailMotion(viewer, () => {
+  if(viewerOrigin?.matches('[data-combo-product]') && viewerOrigin.isConnected) return viewerOrigin;
   const origin=viewerOrigin?.closest('.cart-product');
   if(origin) return [...document.querySelectorAll('.cart-product')].find(row=>row.dataset.cartProduct===origin.dataset.cartProduct)??null;
   return [...grid.querySelectorAll('.product-item')].find(card => card.dataset.id === catalog[activeViewerIndex]?.id)?.querySelector('.product-visual');
@@ -63,14 +70,16 @@ const svgArrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 
 function renderCatalog() {
   catalogMotion.reset();
   const query = search.value.trim().toLocaleLowerCase('es');
-  let items = catalog.filter((item) => (activeFilter === 'all' || item.gender === activeFilter) && `${item.name} ${item.house}`.toLocaleLowerCase('es').includes(query));
+  let items = catalog.filter((item) => (activeFilter === 'all' || item.gender === activeFilter) && (!brandSelect.value||brandHouse(item.brand)===brandSelect.value) && `${item.name} ${item.house} ${item.brand}`.toLocaleLowerCase('es').includes(query));
   if (sort.value === 'az') items = [...items].sort((a, b) => a.name.localeCompare(b.name, 'es'));
   if (sort.value === 'za') items = [...items].sort((a, b) => b.name.localeCompare(a.name, 'es'));
   const byPrice=sort.value==='price-asc'||sort.value==='price-desc';
   if(byPrice) items=[...items].sort((a,b)=>Number(!isPriced(a))-Number(!isPriced(b))||(isPriced(a)&&isPriced(b)?(a.price-b.price)*(sort.value==='price-asc'?1:-1):0)||a.name.localeCompare(b.name,'es'));
-  const brands = new Map();
-  for (const item of items) { if (!brands.has(item.brand)) brands.set(item.brand, []); brands.get(item.brand).push(item); }
-  const groups=byPrice?[[sort.value==='price-asc'?'Precio: menor a mayor':'Precio: mayor a menor',items]]:[...brands.entries()];
+  const pageSize=compactCatalog.matches?4:12;
+  const pages=Math.max(1,Math.ceil(items.length/pageSize));
+  catalogPage=Math.min(catalogPage,pages);
+  const start=(catalogPage-1)*pageSize;
+  const groups=items.length?[['Selección de perfumes',items.slice(start,start+pageSize)]]:[];
   const sections = groups.map(([brand, products]) => `
     <section class="brand-section" aria-label="${escapeHTML(brand)}">
       <header class="brand-heading"><h3>${escapeHTML(brand)}</h3></header>
@@ -85,13 +94,15 @@ function renderCatalog() {
           <div class="product-commerce"><span class="product-price">${isPriced(item)?money(item.price):'Precio por confirmar'}</span><button class="product-add" data-add-product="${escapeHTML(item.id)}" aria-label="Agregar ${escapeHTML(item.name)} al carrito" ${isPriced(item)?'':'disabled'}>Agregar <span aria-hidden="true">+</span></button></div>
         </article>`).join('')}</div></section>`).join('');
   grid.innerHTML = sections;
-  resultCount.textContent = `${items.length} ${items.length === 1 ? 'perfume' : 'perfumes'}`;
-  document.querySelector('.results-caption').textContent=byPrice?'PERFUMES POR PRECIO':'PERFUMES POR MARCA';
+  resultCount.textContent = items.length?`${start+1}–${Math.min(start+pageSize,items.length)} de ${items.length} perfumes`:'0 perfumes';
+  document.querySelector('.results-caption').textContent='';
+  for(const bar of pageBars) {
+    bar.hidden=!items.length;
+    bar.innerHTML=`<button type="button" data-page-step="-1" ${catalogPage===1?'disabled':''}>Anterior</button><label>Página <select aria-label="Elegir página">${Array.from({length:pages},(_,i)=>`<option value="${i+1}" ${catalogPage===i+1?'selected':''}>${i+1}</option>`).join('')}</select> de ${pages}</label><button type="button" data-page-step="1" ${catalogPage===pages?'disabled':''}>Siguiente</button>`;
+  }
   emptyState.hidden = items.length > 0;
   grid.hidden = false;
   catalogMotion.refresh();
-  brandNavigation.refresh();
-  catalogScroll.refresh();
   ScrollTrigger.refresh();
 }
 
@@ -140,6 +151,8 @@ function showViewer(index) {
 }
 function openViewer(index, trigger) {
   if(!catalog.length) return;
+  window.dismissStartup?.();
+  smoothScroll.cancelScroll();
   lastFocused = document.activeElement;viewerOrigin=trigger??null;
   if(!detailLayer.open) detailLayer.showModal();
   showViewer(index); detailMotion.open(trigger);
@@ -148,13 +161,24 @@ function closeViewer(options={}) {
   detailMotion.close(lastFocused,options);
 }
 grid.addEventListener('click', (event) => { const trigger = event.target.closest('[data-view]'); if (trigger) openViewer(Number(trigger.dataset.view), trigger); });
-search.addEventListener('input', renderCatalog); sort.addEventListener('change', renderCatalog);
+const resetCatalogPage=()=>{catalogPage=1;renderCatalog();};
+search.addEventListener('input', resetCatalogPage); sort.addEventListener('change', resetCatalogPage);
+compactCatalog.addEventListener('change',resetCatalogPage);
+function changeCatalogPage(page) {
+  catalogPage=page;renderCatalog();
+  smoothScroll.scrollTo(document.querySelector('.results-line'),24);
+  pageBars[0].querySelector('select').focus({preventScroll:true});
+}
+for(const bar of pageBars) {
+  bar.addEventListener('click',event=>{const button=event.target.closest('[data-page-step]');if(button&&!button.disabled) changeCatalogPage(catalogPage+Number(button.dataset.pageStep));});
+  bar.addEventListener('change',event=>{if(event.target.matches('select')) changeCatalogPage(Number(event.target.value));});
+}
 document.querySelectorAll('.filter-button').forEach((button) => button.addEventListener('click', () => {
   activeFilter = button.dataset.filter;
   document.querySelectorAll('.filter-button').forEach((item) => { const active = item === button; item.classList.toggle('active', active); item.setAttribute('aria-pressed', String(active)); });
-  renderCatalog();
+  resetCatalogPage();
 }));
-document.querySelector('#reset-search').addEventListener('click', () => { search.value = ''; activeFilter = 'all'; document.querySelector('[data-filter="all"]').click(); search.focus(); });
+document.querySelector('#reset-search').addEventListener('click', () => { search.value = '';brandSelect.value=''; activeFilter = 'all'; document.querySelector('[data-filter="all"]').click(); search.focus(); });
 viewer.querySelector('#viewer-close').addEventListener('click', closeViewer);
 viewer.querySelector('.viewer-prev').addEventListener('click', () => showViewer(activeViewerIndex - 1));
 viewer.querySelector('.viewer-next').addEventListener('click', () => showViewer(activeViewerIndex + 1));
@@ -179,8 +203,7 @@ mountChat({currentProduct,openProduct});
 function animateIntro() {
 if (!prefersReducedMotion) {
   const intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
-  intro.from('.site-header', { y: -18, autoAlpha: 0, duration: 0.7 }).from('.hero-note, .hero h1, .hero-description, .hero-cta', { y: 28, autoAlpha: 0, duration: 0.85, stagger: 0.11 }, '-=0.28').from('.hero-index, .hero-bottom', { autoAlpha: 0, duration: 0.6 }, '-=0.35');
-  gsap.to('.hero-copy', { yPercent: -13, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.65 } });
+  intro.from('.site-header', { y: -18, autoAlpha: 0, duration: 0.7 }).from('.hero h1, .hero-description, .hero-cta', { y: 28, autoAlpha: 0, duration: 0.85, stagger: 0.11 }, '-=0.28');
   gsap.from('.closing h2', { y: 35, autoAlpha: 0, duration: 0.9, ease: 'expo.out', scrollTrigger: { trigger: '.closing', start: 'top 76%', once: true } });
 } else gsap.set('.site-header, .hero-note, .hero h1, .hero-description, .hero-cta, .hero-index, .hero-bottom, .closing h2', { clearProps: 'all' });
 }

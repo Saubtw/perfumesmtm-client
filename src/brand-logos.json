@@ -1,0 +1,96 @@
+{
+  "Afnan": {
+    "src": "/images/brands/afnan.webp"
+  },
+  "Ariana Grande": {
+    "src": "/images/brands/ariana-grande.webp"
+  },
+  "Armaf": {
+    "src": "/images/brands/armaf.webp"
+  },
+  "Dior": {
+    "src": "/images/brands/dior.webp"
+  },
+  "Dolce & Gabbana": {
+    "src": "/images/brands/dolce-gabbana.webp"
+  },
+  "Hugo Boss": {
+    "src": "/images/brands/hugo-boss.webp"
+  },
+  "Lancôme": {
+    "src": "/images/brands/lancome.webp"
+  },
+  "Louis Vuitton": {
+    "src": "/images/brands/louis-vuitton.webp"
+  },
+  "Moschino": {
+    "src": "/images/brands/moschino.webp"
+  },
+  "Rabanne": {
+    "src": "/images/brands/rabanne.webp"
+  },
+  "Tom Ford": {
+    "src": "/images/brands/tom-ford.webp"
+  },
+  "Valentino": {
+    "src": "/images/brands/valentino.webp"
+  },
+  "Versace": {
+    "src": "/images/brands/versace.webp"
+  },
+  "Xerjoff": {
+    "src": "/images/brands/xerjoff.webp"
+  },
+  "Yves Saint Laurent": {
+    "src": "/images/brands/yves-saint-laurent.webp"
+  },
+  "Bharara": {
+    "src": "/images/brands/bharara.webp"
+  },
+  "Burberry": {
+    "src": "/images/brands/burberry.webp"
+  },
+  "Giorgio Armani": {
+    "src": "/images/brands/giorgio-armani.webp"
+  },
+  "Jean Paul Gaultier": {
+    "src": "/images/brands/jean-paul-gaultier.webp"
+  },
+  "Le Labo": {
+    "src": "/images/brands/le-labo.webp"
+  },
+  "Coach": {
+    "src": "/images/brands/coach.webp"
+  },
+  "Maison Francis Kurkdjian": {
+    "src": "/images/brands/maison-francis-kurkdjian.webp",
+    "dark": true
+  },
+  "Jo Milano Paris": {
+    "src": "/images/brands/jo-milano-paris.webp"
+  },
+  "Marc Jacobs": {
+    "src": "/images/brands/marc-jacobs.webp"
+  },
+  "Rasasi": {
+    "src": "/images/brands/rasasi.webp"
+  },
+  "Lattafa": {
+    "src": "/images/brands/lattafa.webp"
+  },
+  "Chanel": {
+    "src": "/images/brands/chanel.svg"
+  },
+  "Carolina Herrera": {
+    "src": "/images/brands/carolina-herrera.svg"
+  },
+  "Calvin Klein": {
+    "src": "/images/brands/calvin-klein.svg"
+  },
+  "Valentino Donna": {
+    "src": "/images/brands/valentino.webp"
+  },
+  "Valentino Uomo": {
+    "src": "/images/brands/valentino.webp"
+  }
+}

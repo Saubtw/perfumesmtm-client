@@ -13,7 +13,7 @@ export function mountBrandNavigation(grid, smoothScroll) {
   mobile.setAttribute('aria-label', 'Ir a una marca');
   shell.append(mobile, left, grid);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const desktop = matchMedia('(min-width: 1200px) and (min-height: 720px)');
+  const desktop = matchMedia('(min-width: 1024px)');
   let items = [], dirty = true, enabled = false;
   const markDirty = () => { dirty = true; };
 

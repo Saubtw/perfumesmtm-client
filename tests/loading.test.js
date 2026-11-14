@@ -21,10 +21,10 @@ test('startup releases the page within two seconds while the API is still pendin
   await expect(page.locator('.startup-loader')).toHaveCount(0);
   await expect(page.locator('h1')).toBeVisible();
   expect(await page.locator('.product-item').count()).toBe(0);
-  // The scene downloads independently, even when the catalog has not responded.
-  expect(requestedModels.size).toBe(3);
+  // The photographic hero no longer downloads the old 3D scene.
+  expect(requestedModels.size).toBe(0);
   release();
-  await expect(page.locator('.product-item')).toHaveCount(118);
+  await expect(page.locator('.product-item')).toHaveCount(12);
   expect(await page.evaluate(() => document.documentElement.classList.contains('lenis'))).toBe(false);
 });
 
@@ -53,6 +53,6 @@ test('model failures do not leave a permanent loading screen', async ({ page }) 
   await page.route('**/models/*.glb', route => route.abort());
   await page.goto('/');
   await expect(page.locator('.startup-loader')).toHaveCount(0);
-  await expect(page.locator('.product-item')).toHaveCount(118);
+  await expect(page.locator('.product-item')).toHaveCount(12);
   await expect(page.getByRole('searchbox')).toBeVisible();
 });

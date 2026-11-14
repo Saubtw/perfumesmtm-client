@@ -1,0 +1,33 @@
+import {test,expect} from '@playwright/test';
+
+for(const width of [1440,390,320]) test(`bounded catalog, page navigation and global filters at ${width}px`,async({page})=>{
+  await page.setViewportSize({width,height:1000});await page.goto('/');
+  const size=width<=620?4:12;
+  await expect(page.locator('.catalog-pagination')).toHaveCount(1);
+  const top=page.locator('.catalog-pagination').first();
+  await expect(page.locator('.product-item')).toHaveCount(size);
+  await expect(page.locator('#empty-state')).toBeHidden();
+  await expect(page.locator('#result-count')).toHaveText(`1–${size} de 118 perfumes`);
+  await expect(top.getByRole('button',{name:'Anterior',exact:true})).toBeDisabled();
+  const first=await page.locator('.product-item').first().getAttribute('data-id');
+  await top.getByRole('button',{name:'Siguiente',exact:true}).click();
+  await expect(page.locator('#result-count')).toHaveText(`${size+1}–${size*2} de 118 perfumes`);
+  expect(await page.locator('.product-item').first().getAttribute('data-id')).not.toBe(first);
+  await top.locator('select').selectOption(width<=620?'30':'10');
+  await expect(page.locator('.product-item')).toHaveCount(width<=620?2:10);
+  await expect(top.getByRole('button',{name:'Siguiente',exact:true})).toBeDisabled();
+  const brand=page.getByRole('button',{name:'Ver perfumes de Dior',exact:true});
+  await brand.click();
+  await expect(top.locator('select')).toHaveValue('1');
+  for(const house of await page.locator('.product-house').allTextContents()) expect(house).toBe('Dior');
+  await page.locator('#search-input').fill('zzzz-no-existe');
+  await expect(page.locator('#empty-state')).toBeVisible();await expect(top).toBeHidden();
+  await page.locator('#reset-search').click();await expect(page.getByRole('button',{name:'Ver todas las marcas',exact:true})).toHaveAttribute('aria-pressed','true');
+  await expect(page.locator('#empty-state')).toBeHidden();
+  await expect(page.locator('.product-item')).toHaveCount(size);
+  await page.locator('.product-detail-link').first().click();await expect(page.locator('.detail-layer')).toBeVisible();await page.keyboard.press('Escape');
+  await expect(page.locator('.detail-layer')).not.toBeVisible();
+  await page.locator('.results-line').scrollIntoViewIfNeeded();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.screenshot({path:`../docs/evidence/catalog-pages-${width}.png`});
+});

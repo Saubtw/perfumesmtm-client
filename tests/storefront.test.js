@@ -24,10 +24,10 @@ for (const width of [1440,390]) test(`notes preserve modal bounds and card motio
   await page.keyboard.press('Escape');
   await expect(page.locator('#image-viewer')).toBeHidden();
 });
-test('118 references, original styling, search, filters, ordering and modal',async({page})=>{
-  await page.goto('/');await expect(page.locator('.product-item')).toHaveCount(118);
-  await expect(page.locator('h1')).toHaveText('PERFUMES MTM');
-  expect(await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor)).toBe('rgb(20, 32, 29)');
+test('118 references, botanical storefront, search, filters, ordering and modal',async({page})=>{
+  await page.goto('/');await expect(page.locator('.product-item')).toHaveCount(12);
+  await expect(page.locator('h1')).toContainText('Tu próxima');
+  expect(await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor)).toBe('rgb(250, 250, 247)');
   await page.getByRole('searchbox').fill('Sauvage');await expect(page.locator('.product-item')).toHaveCount(1);
   await page.locator('.product-detail-link').click();await expect(page.locator('.detail-title')).toHaveText('Sauvage Eau de Toilette');await expect(page.locator('.detail-smell')).not.toBeEmpty();
   await expect(page.locator('.viewer-image')).toHaveAttribute('src','/images/catalog/sauvage-eau-de-toilette.jpg');
@@ -35,8 +35,8 @@ test('118 references, original styling, search, filters, ordering and modal',asy
   await page.getByText('Ver notas olfativas',{exact:true}).click();await expect(page.locator('.detail-notes')).toBeVisible();
   await page.keyboard.press('ArrowLeft');await expect(page.locator('.detail-notes')).toBeHidden();
   await page.keyboard.press('Escape');await expect(page.locator('#image-viewer')).toBeHidden();
-  await page.getByRole('searchbox').fill('');await page.locator('[data-filter="femenino"]').click();await expect(page.locator('.product-item')).toHaveCount(32);
-  await page.locator('[data-filter="all"]').click();await page.locator('.sort-trigger').click();await page.locator('[data-sort-value="az"]').click();await expect(page.locator('.product-item')).toHaveCount(118);
+  await page.getByRole('searchbox').fill('');await page.locator('[data-filter="femenino"]').click();await expect(page.locator('.product-item')).toHaveCount(12);
+  await page.locator('[data-filter="all"]').click();await page.locator('.sort-trigger').click();await page.locator('[data-sort-value="az"]').click();await expect(page.locator('.product-item')).toHaveCount(12);
   const broken=await page.locator('.product-item img').evaluateAll(images=>images.filter(img=>img.complete&&img.naturalWidth===0).map(img=>img.src));expect(broken).toEqual([]);
 });
 

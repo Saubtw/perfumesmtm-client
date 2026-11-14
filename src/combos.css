@@ -1,34 +1,101 @@
-.combos-heading{display:flex;align-items:end;justify-content:space-between;gap:32px;margin-bottom:42px}
-.combos-heading h2{font:400 clamp(48px,6vw,80px)/1 var(--serif);margin:0;color:var(--paper);letter-spacing:-.025em}
-.combos-heading p{max-width:360px;margin:0;color:#bdc5b9;font-size:14px;line-height:1.8}
-.combos-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
-.combo-card{--combo-tint:#1c2922;display:flex;flex-direction:column;min-width:0;border:1px solid #c5a46d4d;border-radius:8px;overflow:hidden;background:#14201d}
-.combo-tone-rose{--combo-tint:#2b2523}
-.combo-tone-brass{--combo-tint:#2b2a20}
-.combo-artwork{position:relative;display:flex;align-items:end;justify-content:center;min-height:252px;padding:64px 20px 18px;background:var(--combo-tint);overflow:hidden}
-.combo-piece-count{position:absolute;left:20px;top:24px;color:#d6dace;font-size:12px}
-.combo-savings{position:absolute;right:16px;top:16px;z-index:1;display:flex;align-items:center;gap:7px;padding:9px 12px;background:var(--brass);color:var(--forest);border-radius:3px;font-size:11px}
-.combo-savings strong{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
-.combo-photographs{display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
-.combo-photographs img{display:block;width:calc((100% - (var(--pieces) - 1)*6px)/var(--pieces));max-width:144px;height:164px;min-width:0;object-fit:cover;border-radius:4px;transform:rotate(var(--angle));box-shadow:0 10px 20px #0004;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-.combo-card:hover .combo-photographs img,.combo-card:focus-within .combo-photographs img{transform:translateY(-5px) rotate(calc(var(--angle)*.6))}
-.combo-content{display:flex;flex-direction:column;flex:1;padding:26px 24px 24px;min-width:0}
-.combo-title-row{display:flex;align-items:start;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.combo-title-row h3{font:400 30px/1.1 var(--serif);margin:0;letter-spacing:-.015em;text-wrap:balance}
-.combo-on-request{font-size:10px;white-space:nowrap;border:1px solid #c5a46d66;border-radius:3px;padding:5px 7px;color:#dcc18f}
-.combo-description{font-size:12px;line-height:1.75;color:#bdc5b9;margin:14px 0 20px;max-width:38ch}
-.combo-contents{display:grid;align-content:start;gap:12px;list-style:none;margin:0 0 24px;padding:0;flex:1}
-.combo-contents li{display:grid;gap:3px;font-size:12px;line-height:1.5;overflow-wrap:anywhere}
-.combo-contents small{font-size:10px;color:#a2aaa1}
-.combo-purchase{border-top:1px dashed #c5a46d66;padding-top:20px;margin-top:auto}
-.combo-price>span{font-size:10px;color:#bdc5b9}
-.combo-price>div{display:flex;align-items:baseline;flex-wrap:wrap;gap:12px;margin:7px 0 18px;font-variant-numeric:tabular-nums}
-.combo-price strong{font-size:26px;line-height:1.2;font-weight:600}
-.combo-price s{font-size:12px;color:#a2aaa1}
-.combo-add{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:48px;padding:13px 16px;border:1px solid var(--brass);border-radius:4px;background:var(--brass);color:var(--forest);font-size:12px;font-weight:700;cursor:pointer;transition:background .2s}
-.combo-add:hover{background:#dcc18f}
+.combos-heading{display:flex;align-items:end;justify-content:space-between;gap:32px;margin-bottom:32px}
+.combos-heading h2{font:500 clamp(32px,4vw,48px)/1.1 var(--sans);margin:0;letter-spacing:-.035em}
+.combos-heading p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.combos-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+.combo-card{min-width:0;display:flex;flex-direction:column;background:#fff;border:1px solid #dedee0;border-radius:12px;overflow:hidden}
+.combo-title-row{display:flex;align-items:start;justify-content:space-between;gap:12px;padding:24px 24px 20px;min-height:110px}
+.combo-title-row h3{font:600 20px/1.3 var(--sans);letter-spacing:-.02em;margin:0;text-wrap:balance}
+.combo-piece-count{font-size:12px;color:var(--muted);margin:0 0 8px}
+.combo-on-request{font-size:11px;line-height:1.4;background:#f0efed;color:#525252;padding:5px 7px;border-radius:4px;flex-shrink:0}
+.combo-contents{list-style:none;margin:0;padding:0 24px 20px;display:grid;gap:0}
+.combo-contents li+li{border-top:1px solid #ededee}
+.combo-product{display:grid;grid-template-columns:82px minmax(0,1fr);gap:16px;align-items:center;width:100%;padding:14px 0;border:0;background:transparent;text-align:left;cursor:pointer;border-radius:4px}
+.combo-product:hover{background:#f6f6f7}
+.combo-product img{width:82px;height:100px;object-fit:contain;background:#f8f8f8;border-radius:4px}
+.combo-product-copy{display:grid;gap:5px;min-width:0}
+.combo-product-brand{font-size:11px;color:var(--muted)}
+.combo-product-copy strong{font-size:14px;font-weight:600;line-height:1.4}
+.combo-individual-price{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.combo-product-link{display:flex;gap:5px;align-items:center;font-size:12px;margin-top:4px;text-decoration:underline;text-underline-offset:3px}
+.combo-product-link svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5}
+.combo-purchase{padding:20px 24px 24px;background:#f7f7f8;border-top:1px solid #e6e6e8;margin-top:auto}
+.combo-price>span{font-size:12px;color:var(--muted)}
+.combo-price>div{display:flex;align-items:baseline;gap:12px;margin:7px 0;font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.combo-price strong{font-size:27px;line-height:1.2;font-weight:600;letter-spacing:-.03em}
+.combo-price s{font-size:13px;color:var(--muted)}
+.combo-price .combo-savings{color:#43554b;font-size:12px;line-height:1.5;display:block}
+.combo-add{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:46px;margin-top:18px;padding:12px 16px;border:1px solid #25262a;border-radius:5px;background:#25262a;color:#fff;font-size:13px;font-weight:500;cursor:pointer;transition:background .2s}
+.combo-add:hover{background:#45464d}
 .combo-add svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;fill:none}
-@media(max-width:1140px){.combos-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.combos-grid{grid-template-columns:1fr;gap:24px}.combos-heading{display:block;margin-bottom:30px}.combos-heading p{margin-top:20px;font-size:13px}.combo-artwork{min-height:244px}.combo-content{padding:24px}.combo-description{max-width:none}.combo-contents{gap:13px}.combo-title-row h3{font-size:30px}}
-@media(max-width:360px){.combo-content{padding:22px 18px}.combo-artwork{padding-right:16px;padding-left:16px;min-height:230px}.combo-photographs img{height:148px}.combo-savings{right:12px;padding:8px}.combo-piece-count{left:16px;font-size:11px}.combo-title-row h3{font-size:28px}}
-@media(prefers-reduced-motion:reduce){.combo-photographs img,.combo-add{transition:none}.combo-card:hover .combo-photographs img,.combo-card:focus-within .combo-photographs img{transform:rotate(var(--angle))}}
+@media(max-width:1100px){.combos-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Compact offers keep one price and short, individually accessible product rows. */
+body .promotions{padding-top:32px;padding-bottom:32px}
+.combos-heading{margin-bottom:16px;gap:16px}
+.combos-heading h2{font-size:32px}
+.combos-heading .combos-subtitle{margin-top:6px;font-size:14px}
+.combos-heading>p{display:none}
+.combo-toolbar{max-width:1370px;margin:0 auto 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.combo-filters{display:flex;gap:6px;flex-wrap:wrap}
+.combo-filters button{min-height:44px;padding:8px 12px;border:1px solid #d9ded0;border-radius:4px;background:#fff;color:var(--ink);font:500 13px var(--sans);cursor:pointer}
+.combo-filters button:hover{background:#e8eddc}
+.combo-filters button[aria-pressed=true]{background:#293323;color:#fff;border-color:#293323}
+.combo-results{font-size:12px;color:var(--muted);margin:0}
+.combos-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:stretch}
+.combo-card[hidden]{display:none}
+.combo-offer-strip{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 14px;background:#e8eddc;color:#293323;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.combo-offer-strip span:last-child{font-weight:500}
+.combo-title-row{padding:14px 14px 8px;min-height:0;flex-wrap:wrap;gap:6px}
+.combo-title-row h3{font-size:17px;line-height:1.3}
+.combo-piece-count{margin:5px 0 0;font-size:12px}
+.combo-contents{padding:0 14px 10px}
+.combo-product{grid-template-columns:48px minmax(0,1fr);gap:10px;padding:8px 0;min-height:80px}
+.combo-product img{width:48px;height:62px}
+.combo-product-copy{gap:2px}
+.combo-product-copy strong{font-size:12px;line-height:1.3}
+.combo-product-brand{font-size:10px}
+.combo-individual-price{display:none}
+.combo-product-link{font-size:11px;margin-top:2px}
+.combo-purchase{padding:12px 14px 14px}
+.combo-price>div{gap:8px;margin:4px 0}
+.combo-price strong{font-size:26px}
+.combo-price .combo-savings{display:none}
+.combo-add{margin-top:10px;min-height:44px;padding:10px 12px}
+body .promotion-terms{margin-top:16px;font-size:11px}
+@media(max-width:1200px){.combos-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.combos-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){
+  .combos-heading{display:block}.combos-heading h2{font-size:28px}
+  .combo-toolbar{gap:8px}.combo-filters{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.combo-filters button{font-size:12px;padding:8px 3px}
+  .combos-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scroll-padding-inline:0}
+  .combo-card{flex:0 0 88%;scroll-snap-align:start}
+  .combo-title-row h3{font-size:17px}
+  .combo-product{grid-template-columns:48px minmax(0,1fr)}
+  .combo-product img{width:48px;height:62px}
+  .combo-results::after{content:' · Desliza para ver más'}
+}
+
+/* One shared fragrance composition; each photograph and caption is its own button. */
+.combo-contents{position:relative;isolation:isolate;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;padding:132px 16px 16px;margin:0 10px}
+.combo-contents::before{content:'';position:absolute;z-index:-1;inset:6px 0 auto;height:112px;border-radius:8px;background:#f5f6ef}
+.combo-contents li{min-width:0}
+.combo-contents li+li{border:0}
+.combo-product{position:static;display:block;min-height:0;width:100%;height:100%;padding:0;background:transparent;border-radius:3px}
+.combo-product:hover{background:transparent}
+.combo-product img{position:absolute;top:15px;left:calc(50% + var(--fan-x));width:96px;height:94px;max-width:none;object-fit:contain;background:#fff;border:3px solid #fff;border-radius:5px;box-shadow:0 5px 12px #272b251a;transform:translateX(-50%) rotate(var(--fan-angle));transform-origin:50% 85%;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;z-index:1}
+.combo-product-copy{gap:3px;padding:0 0 5px;border-bottom:1px solid #d9ded0;position:relative}
+.combo-product-brand{font-size:10px;line-height:1.3;overflow-wrap:anywhere}
+.combo-product-copy strong{font-size:12px;line-height:1.35;min-height:32px;overflow-wrap:anywhere}
+.combo-product-link{font-size:10px;line-height:1.4;margin-top:2px;justify-content:space-between;text-decoration:none;color:#4b613b}
+.combo-product-link svg{width:12px;height:12px;transition:transform .25s}
+.combo-product:hover .combo-product-copy,.combo-product:focus-visible .combo-product-copy{border-color:#50643e}
+.combo-product:hover .combo-product-link{text-decoration:underline;text-underline-offset:3px}
+.combo-product:focus-visible img{outline:2px solid #50643e;outline-offset:3px;z-index:3}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .combo-product:hover img{transform:translate(-50%,-7px) rotate(0deg);box-shadow:0 10px 18px #272b2526;z-index:3}
+  .combo-product:hover .combo-product-link svg{transform:translate(1px,-1px)}
+}
+@media(prefers-reduced-motion:reduce){.combo-product img,.combo-product-link svg{transition:none}}
+@media(max-width:620px){.combos-grid{align-items:flex-start}.combo-card{height:auto}}
+
+
+@media(max-width:620px){.combo-product img{width:80px;left:calc(50% + var(--fan-x)*.8)}}

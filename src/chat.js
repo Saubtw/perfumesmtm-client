@@ -5,7 +5,7 @@ const safeImage=s=>typeof s==='string' && (/^\/(?!\/)/.test(s)||s.startsWith('ht
 const sessionKey='mtm-catalog-session-v3';
 export function mountChat({currentProduct,openProduct}) {
   const root=document.createElement('aside');root.className='advisor';
-  root.innerHTML=`<button class="advisor-launch" aria-expanded="false" aria-controls="advisor-panel">Asesor de perfumes <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 1-8 8H5l-3 3V11a9 9 0 1 1 18 0Z"/></svg></button>
+  root.innerHTML=`<button class="advisor-launch" aria-label="Asesor de perfumes" aria-expanded="false" aria-controls="advisor-panel"><span>Asesor de perfumes</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 1-8 8H5l-3 3V11a9 9 0 1 1 18 0Z"/></svg></button>
     <section id="advisor-panel" class="advisor-panel" role="dialog" aria-label="Perfume AI Advisor" hidden>
       <header><div><h2>Asesor de catálogo</h2><p>Perfumes MTM</p></div><div class="advisor-header-actions"><button class="advisor-new" type="button" title="Iniciar una nueva conversación"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Nuevo chat</button><button class="advisor-close" aria-label="Cerrar asesor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div></header>
       <div class="advisor-messages" role="log" aria-live="polite" aria-relevant="additions text" tabindex="0"></div>

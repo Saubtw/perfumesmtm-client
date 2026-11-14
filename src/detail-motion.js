@@ -53,7 +53,7 @@ export function mountDetailMotion(viewer, currentCard, onClose=()=>{}) {
     gsap.set(dialog, { clearProps: 'transform,height' });
     // Freeze the collapsed footprint; disclosure content scrolls inside it.
     dialog.style.height = `${dialog.getBoundingClientRect().height}px`;
-    const origin = trigger?.closest('.cart-product') ?? trigger?.closest('.product-item')?.querySelector('.product-visual') ?? currentCard();
+    const origin = trigger?.closest('[data-combo-product], .cart-product') ?? trigger?.closest('.product-item')?.querySelector('.product-visual') ?? currentCard();
     gsap.set(dialog, { transformOrigin: '0 0' });
     transition = gsap.timeline();
     transition.fromTo(viewer, { autoAlpha: 0 }, { autoAlpha: 1, duration: reduced() ? .12 : .22 }, 0);
