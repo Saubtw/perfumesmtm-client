@@ -1,4 +1,5 @@
 import {combos} from './combos.js';
+import {whatsappContact} from './whatsapp.js';
 // This explicit owner-managed list is the only source of published offers.
 export const promotions = combos.filter(combo=>combo.enabled);
 export function setPromotions(items){promotions.splice(0,promotions.length,...items);}
@@ -66,5 +67,5 @@ export function whatsappMessage(lines, name) {
 }
 export function whatsappUrl(lines, name) {
   const message=whatsappMessage(lines,name);
-  return message ? `https://wa.me/528714750620?text=${encodeURIComponent(message)}` : null;
+  return message ? `${whatsappContact}?text=${encodeURIComponent(message)}` : null;
 }

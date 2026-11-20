@@ -1,102 +1,48 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-MX">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
-    <style>
-      .startup-loader{display:none}
-      .is-loading .startup-loader{display:grid}
-      .startup-loader{position:fixed;inset:0;z-index:10000;place-content:center;justify-items:center;gap:24px;background:#fff;color:#25262a;transition:opacity .18s ease;pointer-events:none;animation:startup-dismiss .18s 1.8s forwards}
-      .startup-loader strong{font:500 clamp(18px,4vw,28px)/1.2 Arial,sans-serif;letter-spacing:.24em}
-      .startup-loader span{font:10px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#62636a}
-      .startup-loader::after{content:'';width:144px;height:1px;background:#25262a;transform-origin:left;animation:startup-progress 1.6s cubic-bezier(.16,1,.3,1) both}
-      .is-loading #app{visibility:hidden;animation:startup-reveal 0s 1.8s forwards}
-      @keyframes startup-progress{from{transform:scaleX(.06)}to{transform:scaleX(1)}}
-      @keyframes startup-dismiss{to{opacity:0;visibility:hidden}}
-      @keyframes startup-reveal{to{visibility:visible}}
-      @media(prefers-reduced-motion:reduce){.startup-loader{transition:none}.startup-loader::after{animation:none}}
-    </style>
-    <script>
-      document.documentElement.classList.add('is-loading');
-      window.dismissStartup = () => {
-        const loader = document.querySelector('.startup-loader');
-        if (!document.documentElement.classList.contains('is-loading')) return;
-        document.documentElement.classList.remove('is-loading');
-        if (loader) {
-          loader.style.animation = 'none';
-          loader.style.display = 'grid';
-          loader.style.opacity = '0';
-          setTimeout(() => loader.remove(), 180);
-        }
-        window.dispatchEvent(new Event('startup-complete'));
-      };
-      // Independent of the API, WebGL and module downloads: never trap visitors.
-      setTimeout(window.dismissStartup, 1800);
-    </script>
-    <meta name="description" content="Perfumes MTM. Catálogo de perfumes por marca, notas y familia olfativa." />
-    <title>Perfumes MTM | Catálogo de perfumes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f6f1">
+    <meta name="description" content="Catálogo de Perfumes MTM. Explora 15 fragancias de $499 y $699 MXN y haz tu pedido por WhatsApp.">
+    <title>Perfumes MTM | Catálogo</title>
   </head>
   <body>
-    <div class="startup-loader" role="status" aria-label="Cargando Perfumes MTM"><strong>PERFUMES MTM</strong><span>Preparando tu colección</span></div>
-    <div id="app">
-      <header class="site-header">
-        <a class="wordmark" href="#inicio" aria-label="Perfumes MTM, inicio">PERFUMES MTM</a>
-        <nav class="main-nav" aria-label="Navegación principal"><a href="#promociones">Combos</a><a href="#coleccion">Catálogo</a></nav>
-        <button id="cart-open" class="header-cart" type="button" aria-label="Abrir carrito">Carrito</button>
-      </header>
-      <main>
-        <section class="hero" id="inicio" aria-labelledby="hero-title">
-          <div class="hero-copy">
-            
-            <h1 id="hero-title"><span class="hero-title-fill">Tu próxima<br>fragancia.</span></h1>
-            <p class="hero-description">Encuentra la que va contigo. Explora por marca, descubre sus notas y elige tu próximo perfume.</p>
-            <a class="hero-cta" href="#coleccion"><span>Explorar catálogo</span><span class="cta-arrow">↓</span></a>
-          </div>
-          
-          
-        </section>
-        <section id="promociones" class="promotions" aria-label="Promociones y combos"></section>
-        <section class="collection" id="coleccion" aria-labelledby="collection-title">
-          <div class="collection-intro">
-              <div class="intro-row"><h2 id="collection-title">Catálogo</h2><p class="intro-aside">Explora los perfumes y consulta sus notas, familia olfativa y ocasiones recomendadas.</p></div>
-          </div>
-          <div class="collection-toolbar">
-            <label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.2 4.2"></path></svg><input id="search-input" type="search" placeholder="Buscar fragancia o casa" autocomplete="off" aria-label="Buscar en la colección" /><kbd>/</kbd></label>
-            <div class="filters" aria-label="Filtrar colección"><button class="filter-button active" data-filter="all" aria-pressed="true">Todo <span>118</span></button><button class="filter-button" data-filter="masculino" aria-pressed="false">Hombre <span>86</span></button><button class="filter-button" data-filter="femenino" aria-pressed="false">Mujer <span>32</span></button></div>
-            <div class="sort-field"><span>ORDENAR</span><select id="sort-select" aria-label="Ordenar colección" hidden><option value="default">Selección</option><option value="az">Nombre, A–Z</option><option value="za">Nombre, Z–A</option><option value="price-asc">Precio: menor a mayor</option><option value="price-desc">Precio: mayor a menor</option></select></div>
-          </div>
-          <div class="results-line"><span id="result-count">118 perfumes</span><span class="results-caption">PERFUMES POR MARCA</span><span class="results-rule"></span></div>
-          <div class="catalog-grid" id="catalog-grid" aria-live="polite"></div>
-          <div class="empty-state" id="empty-state" hidden><p>No encontramos esa fragancia.</p><button id="reset-search">Ver toda la colección <span>↗</span></button></div>
-          <div class="collection-end"><span>FIN DEL CATÁLOGO</span><span>118 / 118</span><span class="end-line"></span><a href="#inicio" aria-label="Volver al inicio">↑</a></div>
-        </section>
-        <section class="closing" id="archivo"><h2>Asesoría de perfumes</h2><p class="closing-description">Encuentra un perfume para tu rutina: trabajo, escuela, una salida de día o una fiesta de noche. Cuéntale al asesor cuándo y dónde lo usarás.</p><a class="closing-link" href="#coleccion">Consultar catálogo <span>↗</span></a></section>
-      </main>
-      <footer class="site-footer"><a class="footer-wordmark" href="#inicio">PERFUMES MTM</a><span>CATÁLOGO Y ASESORÍA DE PERFUMES</span><a class="top-link" href="#inicio">VOLVER ARRIBA ↑</a></footer>
-    </div>
-    <div class="image-viewer" id="image-viewer" role="dialog" aria-modal="true" aria-labelledby="detail-title" aria-describedby="detail-smell" hidden>
-      <button class="viewer-close" id="viewer-close" aria-label="Cerrar ficha">×</button>
-      <button class="viewer-prev" aria-label="Perfume anterior">←</button>
-      <article class="detail-dialog">
-        <div class="detail-artwork"><img class="viewer-image" src="/images/catalog/asad.webp" alt="" /></div>
-        <div class="detail-copy">
-          <header class="detail-heading"><div><p class="detail-brand"></p><h2 class="detail-title" id="detail-title"></h2></div><span class="detail-index"></span></header>
-          <div class="detail-labels"><span class="detail-replica">Réplica 1:1</span></div>
-          <p class="detail-smell" id="detail-smell"></p>
-          <div class="detail-family detail-tags" aria-label="Familias olfativas"></div>
-          <dl class="detail-profile" aria-label="Perfil olfativo"></dl>
-          <section class="detail-section detail-occasion-section"><h3 class="detail-section-label">Ideal para</h3><div class="detail-occasion detail-tags"></div></section>
-          <details class="detail-disclosure"><summary>Ver notas olfativas</summary><div class="detail-notes"></div><p class="detail-caution" hidden></p></details>
-          <p class="detail-1to1-note">Perfil de referencia; aroma y duración pueden variar en la réplica.</p>
-          <div class="detail-commerce"><span class="product-price detail-price"></span><button class="product-add detail-add">Agregar al carrito</button></div>
+    <header class="site-bar">
+      <div class="wrap">
+        <a class="wordmark" href="./">Perfumes MTM</a>
+        <div class="header-actions">
+          <a id="whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <button id="cart-button" type="button" aria-haspopup="dialog">Carrito <span id="cart-count">0</span></button>
         </div>
-      </article>
-      <button class="viewer-next" aria-label="Perfume siguiente">→</button>
-    </div>
+      </div>
+    </header>
+    <main class="wrap">
+      <h1>Catálogo de perfumes</h1>
+      <p class="intro">Réplicas 1:1 · Precios por pieza en MXN</p>
+      <div class="toolbar">
+        <form id="search-form" role="search">
+          <label class="sr-only" for="search">Buscar perfume o marca</label>
+          <input id="search" type="search" placeholder="Buscar perfume o marca" autocomplete="off">
+        </form>
+        <div id="price-filters" class="filters" role="group" aria-label="Filtrar por precio"></div>
+      </div>
+      <p id="result-count" aria-live="polite"></p>
+      <div id="shop-grid" class="grid"></div>
+      <p id="no-results" hidden>No encontramos perfumes con esa búsqueda.</p>
+      <p id="shop-status" class="sr-only" role="status"></p>
+    </main>
+    <dialog id="cart" aria-labelledby="cart-title">
+      <header class="cart-header">
+        <h2 id="cart-title">Tu carrito</h2>
+        <form method="dialog"><button id="close-cart" aria-label="Cerrar carrito">×</button></form>
+      </header>
+      <div id="cart-items"></div>
+      <footer class="cart-footer">
+        <p><span>Total</span><strong id="cart-total"></strong></p>
+        <a id="checkout" class="checkout" target="_blank" rel="noopener noreferrer" hidden>Enviar pedido por WhatsApp</a>
+      </footer>
+    </dialog>
     <script type="module" src="/src/boot.js"></script>
   </body>
 </html>
