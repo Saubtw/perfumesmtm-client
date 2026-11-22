@@ -20,7 +20,6 @@ try {
 }
 const grid = document.querySelector('#shop-grid');
 const search = document.querySelector('#search');
-const sorter = document.querySelector('#sort-products');
 const drawer = document.querySelector('#cart');
 const cartItems = document.querySelector('#cart-items');
 const cartButton = document.querySelector('#cart-button');
@@ -34,7 +33,6 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const catalogMotion = mountCatalogMotion(grid);
 let visible = [];
 let detailIndex = 0;
-let sortOrder = 'featured';
 let cartFlight;
 
 gsap.registerPlugin(ScrollTrigger);
@@ -61,9 +59,6 @@ document.querySelector('#whatsapp').href = whatsappContact;
 function renderProducts() {
   const query = fold(search.value);
   visible = products.filter(({brand, name}) => fold(`${brand} ${name}`).includes(query));
-  if (sortOrder === 'name-asc') visible.sort((a,b) => a.name.localeCompare(b.name, 'es'));
-  if (sortOrder === 'price-asc') visible.sort((a,b) => a.price-b.price || a.name.localeCompare(b.name, 'es'));
-  if (sortOrder === 'price-desc') visible.sort((a,b) => b.price-a.price || a.name.localeCompare(b.name, 'es'));
   document.querySelector('#result-count').textContent = `${visible.length} ${visible.length === 1 ? 'perfume' : 'perfumes'}`;
   grid.innerHTML = visible.map(({id, name, brand, price}, index) => `
     <article class="product product-item">
@@ -71,7 +66,7 @@ function renderProducts() {
         <img width="480" height="480" src="/images/shop/${id}.webp" alt="" ${index < 4 ? '' : 'loading="lazy"'} decoding="async">
         <span>Ver ficha</span>
       </button>
-      <div class="product-copy"><p class="brand">${brand}</p><h2>${name}</h2>
+      <div class="product-copy"><p class="brand">${brand}</p><h3>${name}</h3>
       <div class="product-order">
         <p class="product-price"><strong>${money(price)}</strong> <span>MXN</span></p>
         ${productActions({id, brand, name, price})}
@@ -144,7 +139,7 @@ function renderCart() {
   if (count) {
     const detail = lines.map(({brand, name, quantity, price}) => `• ${quantity} × ${brand} ${name} — ${money(price * quantity)}`).join('\n');
     checkout.href = whatsappLink(
-      `Hola, quiero hacer este pedido:\n\n${detail}\n\nTotal: ${money(total)} MXN\n\n¿Me confirman disponibilidad y entrega?`
+      `Hola, quiero consultar este pedido:\n\n${detail}\n\nTotal: ${money(total)} MXN\n\n¿Me confirman disponibilidad?`
     );
   } else {
     checkout.removeAttribute('href');
@@ -165,7 +160,6 @@ function changeQuantity(id, step) {
 
 searchForm.addEventListener('submit', event => event.preventDefault());
 search.addEventListener('input', renderProducts);
-sorter.addEventListener('change', () => {sortOrder=sorter.value;renderProducts();});
 function openCart(addedId) {
   cartFlight?.cancel();
   cartFlight = undefined;

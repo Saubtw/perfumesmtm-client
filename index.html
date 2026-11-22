@@ -10,7 +10,8 @@
   <body>
     <header class="site-bar">
       <div class="wrap">
-        <a class="wordmark" href="./">Perfumes MTM</a>
+        <a class="wordmark" href="./"><img src="/images/perfumes-mtm-logo.png" width="88" height="58" alt="Perfumes MTM"></a>
+        <nav class="site-nav" aria-label="Navegación principal"><a href="#catalogo">Catálogo</a></nav>
         <div class="header-actions">
           <a id="whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
           <button id="cart-button" type="button" aria-haspopup="dialog">Carrito <span id="cart-count">0</span></button>
@@ -18,32 +19,27 @@
       </div>
     </header>
     <main class="wrap">
-      <div class="catalog-intro">
+      <section class="catalog-intro" aria-labelledby="intro-title">
         <div class="catalog-title">
-          <h1>Catálogo<br> de perfumes</h1>
-          <p class="intro">Descubre fragancias, consulta sus precios y elige tu próxima firma olfativa.</p>
+          <h1 id="intro-title">Descubre tu próxima fragancia</h1>
+          <p class="intro">Explora las notas de cada perfume y consulta disponibilidad por WhatsApp.</p>
+          <a class="catalog-cta" href="#catalogo">Ver catálogo <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
         </div>
         <img class="catalog-photo" src="/images/hero-botanical-editorial.webp" alt="">
-      </div>
-      <div class="toolbar">
-        <form id="search-form" role="search">
-          <label class="sr-only" for="search">Buscar perfume o marca</label>
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 4 4"/></svg>
-          <input id="search" type="search" placeholder="Buscar perfume o marca" autocomplete="off">
-        </form>
-        <label class="sort-field" for="sort-products">Ordenar por
-          <select id="sort-products" aria-label="Ordenar perfumes">
-            <option value="featured">Selección</option>
-            <option value="name-asc">Nombre: A–Z</option>
-            <option value="price-asc">Precio: menor a mayor</option>
-            <option value="price-desc">Precio: mayor a menor</option>
-          </select>
-        </label>
-        <p id="result-count" aria-live="polite"></p>
-      </div>
-      <div id="shop-grid" class="grid"></div>
-      <p id="no-results" hidden>No encontramos perfumes con esa búsqueda.</p>
-      <p id="shop-status" class="sr-only" role="status"></p>
+      </section>
+      <section id="catalogo" aria-labelledby="catalog-title">
+        <div class="toolbar">
+          <div><h2 id="catalog-title">Catálogo de perfumes</h2><p id="result-count" aria-live="polite"></p></div>
+          <form id="search-form" role="search">
+            <label class="sr-only" for="search">Buscar perfume o marca</label>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 4 4"/></svg>
+            <input id="search" type="search" placeholder="Buscar perfume o marca" autocomplete="off">
+          </form>
+        </div>
+        <div id="shop-grid" class="grid"></div>
+        <p id="no-results" hidden>No encontramos perfumes con esa búsqueda.</p>
+        <p id="shop-status" class="sr-only" role="status"></p>
+      </section>
     </main>
     <dialog id="perfume-detail" aria-labelledby="perfume-title">
       <div class="perfume-panel">
