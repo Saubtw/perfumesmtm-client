@@ -10,7 +10,7 @@ export const products = [
   ["Louis Vuitton", "Imagination", "imagination", 699, 30],
   ["Paco Rabanne", "Invictus Victory Elixir", "invictusvictoryelixir", 699, 68],
   ["Rasasi", "Hawas Ice", "hawasice", 499, 54],
-  ["Valentino Uomo", "Born in Roma Intense", "borninromaintense", 749, 35],
+  ["Valentino Uomo", "Born in Roma Intense", "borninromaintense", 699, 35],
   ["Versace", "Eros Eau de Parfum", "eroseaudeparfum", 499, 50],
   ["Xerjoff", "Erba Pura", "erbapura", 699, 75],
 ].map(([brand, name, id, price, catalogId]) => ({brand, name, id, price, catalogId}));
