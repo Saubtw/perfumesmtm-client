@@ -96,19 +96,12 @@
     "profile": "dulzor muy alto, frescura media-alta inicial, intensidad muy alta.",
     "occasion": "fiestas, eventos y clima templado."
   },
-  "90": {
-    "family": "floral, ambarada y vainillada.",
-    "smell": "vainilla profunda con jazmín cremoso y un fondo cálido de resinas.",
-    "profile": "dulzor alto, frescura baja, intensidad alta.",
-    "occasion": "citas románticas, fiestas, invierno y noches.",
-    "notes": "vainilla bourbon, jazmín y benjuí."
-  },
-  "92": {
-    "family": "floral, ambarada y gourmand.",
-    "smell": "flores blancas intensas junto con almendra, cacao y una base de vainilla dulce. El café agrega profundidad sin convertirlo en un perfume exclusivamente cafetero.",
-    "profile": "dulzor alto, frescura baja-media, intensidad alta.",
-    "occasion": "citas, cenas, eventos elegantes y clima fresco.",
-    "notes": "almendra, café, bergamota, jazmín sambac, nardo, cacao, haba tonka, vainilla, sándalo y praliné."
+  "35": {
+    "family": "ambarada, aromática y vainillada.",
+    "smell": "vainilla cálida junto a lavanda masculina y un fondo de vetiver seco.",
+    "profile": "dulzor alto, frescura media-baja, intensidad alta.",
+    "occasion": "citas, fiestas, cenas y noches frescas.",
+    "notes": "vainilla, lavandín y vetiver."
   },
   "104": {
     "family": "floral, marina, ambarada y gourmand.",
