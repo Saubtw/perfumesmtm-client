@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#211611">
-    <meta name="description" content="Catálogo de Perfumes MTM. Encuentra tu fragancia, consulta su precio y haz tu pedido por WhatsApp.">
+    <meta name="description" content="Catálogo de Perfumes MTM. Encuentra tu fragancia, consulta su precio y haz tu pedido por mensaje directo de Instagram.">
     <title>Perfumes MTM | Catálogo</title>
   </head>
   <body>
@@ -13,7 +13,7 @@
         <a class="wordmark" href="./"><img src="/images/perfumes-mtm-crema-cobre.svg" width="898" height="730" alt="Perfumes MTM"></a>
         <nav class="site-nav" aria-label="Navegación principal"><a href="#catalogo">Catálogo</a></nav>
         <div class="header-actions">
-          <a id="whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a id="instagram" href="https://ig.me/m/perfumes.mtm" target="_blank" rel="noopener noreferrer" aria-label="Abrir chat con Perfumes MTM en Instagram">Instagram</a>
           <button id="cart-button" type="button" aria-haspopup="dialog">Carrito <span id="cart-count">0</span></button>
         </div>
       </div>
@@ -22,7 +22,7 @@
       <section class="catalog-intro" aria-labelledby="intro-title">
         <div class="catalog-title">
           <h1 id="intro-title">Descubre tu próxima fragancia</h1>
-          <p class="intro">Explora las notas de cada perfume y consulta disponibilidad por WhatsApp.</p>
+          <p class="intro">Explora las notas de cada perfume y consulta disponibilidad por Instagram.</p>
           <a class="catalog-cta" href="#catalogo">Ver catálogo</a>
         </div>
         <img class="catalog-photo" src="/images/campana/9pmrebel.webp"
@@ -66,7 +66,12 @@
       <div id="cart-items"></div>
       <footer class="cart-footer">
         <p><span>Total</span><strong id="cart-total"></strong></p>
-        <a id="checkout" class="checkout" target="_blank" rel="noopener noreferrer" hidden>Enviar pedido por WhatsApp</a>
+        <div class="cart-contact" hidden>
+          <button id="copy-order" type="button">Copiar pedido</button>
+          <a id="checkout" class="checkout" target="_blank" rel="noopener noreferrer">Abrir chat en Instagram</a>
+        </div>
+        <p id="copy-status" role="status"></p>
+        <textarea id="order-summary" aria-label="Resumen del pedido" rows="4" readonly hidden></textarea>
       </footer>
     </dialog>
     <script type="module" src="/src/boot.js"></script>

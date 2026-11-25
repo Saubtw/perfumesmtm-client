@@ -91,10 +91,10 @@ h1 { margin: 0; font-size: clamp(2.15rem, 5.1vw, 4.6rem); font-weight: 600; line
 .product-actions { display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 6px; }
 .product-actions button { display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 14px; padding-inline: 8px; }
 .product-actions button svg { width: 17px; height: 17px; }
-.product-whatsapp { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #a68a79; border-radius: 4px; color: var(--action); text-decoration: none; }
-.product-whatsapp svg { width: 23px; height: 23px; }
-.product-whatsapp:hover { background: var(--surface); border-color: var(--action); }
-.product-whatsapp:focus-visible, .product-actions button:focus-visible { outline-offset: 3px; }
+.product-instagram { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #a68a79; border-radius: 4px; color: var(--action); text-decoration: none; }
+.product-instagram svg { width: 23px; height: 23px; }
+.product-instagram:hover { background: var(--surface); border-color: var(--action); }
+.product-instagram:focus-visible, .product-actions button:focus-visible { outline-offset: 3px; }
 
 #cart { padding: 0; position: fixed; inset: 0 0 0 auto; margin: 0; border: 0; width: min(100%, 440px); height: 100dvh; max-height: none; max-width: 100%; color: var(--ink); background: var(--paper); }
 #cart[open] { display: flex; flex-direction: column; animation: cart-enter 300ms cubic-bezier(.22, 1, .36, 1) both; }
@@ -137,8 +137,15 @@ body:has(#cart[open]) { overflow: hidden; }
 .quantity { display: flex; align-items: center; gap: 9px; margin-top: 8px; }
 .quantity button:disabled { opacity: .4; }
 .cart-footer { border-top: 1px solid var(--line); border-bottom: 0; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
-.cart-footer p { display: flex; justify-content: space-between; margin: 0 0 10px; }
+.cart-footer > p:first-child { display: flex; justify-content: space-between; margin: 0 0 10px; }
+.cart-contact { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; }
+.checkout, #copy-order { padding: 8px 12px; font-size: .875rem; text-align: center; }
 .checkout { display: grid; place-items: center; text-decoration: none; }
+#copy-order { min-height: 44px; border: 1px solid #a68a79; border-radius: 4px; color: var(--action); background: var(--white); font-weight: 600; }
+#copy-order:hover { background: var(--surface); }
+#copy-status { margin: 8px 0 0; color: var(--muted); font-size: .875rem; }
+#copy-status:empty { margin: 0; }
+#order-summary { display: block; width: 100%; margin-top: 8px; padding: 8px; border: 1px solid #a68a79; border-radius: 4px; background: var(--white); color: var(--ink); font: inherit; }
 .empty, #no-results { color: var(--muted); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
@@ -298,7 +305,7 @@ body:has(#perfume-detail[open]) { overflow: hidden; }
 }
 .perfume-footer .product-price { margin: 0; }
 .perfume-footer .product-actions { width: min(100%, 235px); }
-.perfume-footer .product-actions button, .perfume-footer .product-whatsapp { border-radius: 9px; }
+.perfume-footer .product-actions button, .perfume-footer .product-instagram { border-radius: 9px; }
 @keyframes perfume-enter {
   from { opacity: .35; transform: translateY(10px) scale(.985); }
   to { opacity: 1; transform: none; }

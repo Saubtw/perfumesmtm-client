@@ -1,5 +1,4 @@
 import {products, money} from './shop-products.js';
-import {whatsappContact} from './whatsapp.js';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {mountCatalogMotion} from './catalog-motion.js';
@@ -25,6 +24,11 @@ const drawer = document.querySelector('#cart');
 const cartItems = document.querySelector('#cart-items');
 const cartButton = document.querySelector('#cart-button');
 const checkout = document.querySelector('#checkout');
+const cartContact = document.querySelector('.cart-contact');
+const copyOrder = document.querySelector('#copy-order');
+const copyStatus = document.querySelector('#copy-status');
+const orderSummary = document.querySelector('#order-summary');
+const instagramChat = document.querySelector('#instagram').href;
 const status = document.querySelector('#shop-status');
 const searchForm = document.querySelector('#search-form');
 const detailDialog = document.querySelector('#perfume-detail');
@@ -41,21 +45,20 @@ mountSmoothScroll(gsap, ScrollTrigger);
 
 const fold = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
 const icon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l2 14H4L6 7Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>';
-const whatsappIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.3-4.2a8.5 8.5 0 1 1 15.7-4.5Z"/><path fill="currentColor" stroke="none" d="M8.4 7.6c.4-.3 1-.3 1.2.2l.9 1.9c.2.4-.3.9-.6 1.2.7 1.3 1.8 2.3 3.2 2.9.3-.4.7-1 1.1-.8l2 1c.6.3.4 1.3-.2 1.8-.7.7-1.8.8-3.5.1-2.8-1.1-5-3.6-5.2-5.8-.1-1.1.4-2 1.1-2.5Z"/></svg>';
-const whatsappLink = message => `${whatsappContact}?text=${encodeURIComponent(message)}`;
+const instagramIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><path d="M17.2 6.8h.01" stroke-width="2.2"/></svg>';
 const escapeHTML = value => String(value ?? '').replaceAll('*', '').replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 })[character]);
 
-function productActions({id, brand, name, price}) {
+function productActions({id, name}) {
   return `<div class="product-actions">
     <button type="button" data-add="${id}" aria-label="Agregar ${name} al carrito">${icon}<span>Agregar</span></button>
-    <a class="product-whatsapp" href="${whatsappLink(`Hola, me interesa ${brand} ${name} (${money(price)} MXN). ¿Está disponible?`)}" target="_blank" rel="noopener noreferrer" aria-label="Consultar ${name} por WhatsApp" title="WhatsApp">${whatsappIcon}</a>
+    <a class="product-instagram" href="${instagramChat}" target="_blank" rel="noopener noreferrer" aria-label="Consultar ${name} por mensaje directo de Instagram" title="Mensaje directo de Instagram">${instagramIcon}</a>
   </div>`;
 }
 
 cartButton.insertAdjacentHTML('afterbegin', icon);
-document.querySelector('#whatsapp').href = whatsappContact;
+checkout.href = instagramChat;
 
 function renderProducts() {
   const query = fold(search.value);
@@ -70,7 +73,7 @@ function renderProducts() {
       <div class="product-copy"><p class="brand">${brand}</p><h3>${name}</h3>
       <div class="product-order">
         <p class="product-price"><strong>${money(price)}</strong> <span>MXN</span></p>
-        ${productActions({id, brand, name, price})}
+        ${productActions({id, name})}
       </div></div>
     </article>`
   ).join('');
@@ -138,16 +141,27 @@ function renderCart() {
       </div><strong>${money(price * quantity)}</strong>
     </article>`
   ).join('') || '<p class="empty">Tu carrito está vacío.</p>';
-  checkout.hidden = !count;
-  if (count) {
-    const detail = lines.map(({brand, name, quantity, price}) => `• ${quantity} × ${brand} ${name} — ${money(price * quantity)}`).join('\n');
-    checkout.href = whatsappLink(
-      `Hola, quiero consultar este pedido:\n\n${detail}\n\nTotal: ${money(total)} MXN\n\n¿Me confirman disponibilidad?`
-    );
-  } else {
-    checkout.removeAttribute('href');
-  }
+  cartContact.hidden = !count;
+  copyStatus.textContent = '';
+  orderSummary.hidden = true;
+  const detail = lines.map(({brand, name, quantity, price}) => `• ${quantity} × ${brand} ${name} — ${money(price * quantity)}`).join('\n');
+  orderSummary.value = count
+    ? `Hola, quiero consultar este pedido:\n\n${detail}\n\nTotal: ${money(total)} MXN\n\n¿Me confirman disponibilidad?`
+    : '';
 }
+
+copyOrder.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(orderSummary.value);
+    copyStatus.textContent = 'Pedido copiado. Pégalo en el chat de Instagram.';
+    orderSummary.hidden = true;
+  } catch {
+    copyStatus.textContent = 'Copia este resumen y pégalo en el chat de Instagram.';
+    orderSummary.hidden = false;
+    orderSummary.focus();
+    orderSummary.select();
+  }
+});
 
 function changeQuantity(id, step) {
   const quantity = Math.min(99, (cart[id] ?? 0) + step);
