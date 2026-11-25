@@ -8,6 +8,7 @@ import olfactory from './shop-olfactory.json';
 import './shop.css';
 
 const cartKey = 'perfumes-mtm-shop-cart';
+const campaignImage = (id, large = false) => `/images/campana/${id}${large ? '-1000' : ''}.webp`;
 const productById = new Map(products.map(product => [product.id, product]));
 let cart = {};
 try {
@@ -63,7 +64,7 @@ function renderProducts() {
   grid.innerHTML = visible.map(({id, name, brand, price}, index) => `
     <article class="product product-item">
       <button class="product-visual" type="button" data-detail="${index}" aria-haspopup="dialog" aria-label="Ver ficha de ${name}">
-        <img width="480" height="480" src="/images/shop/${id}.webp" alt="" ${index < 4 ? '' : 'loading="lazy"'} decoding="async">
+        <img width="640" height="640" src="${campaignImage(id)}" alt="" ${index < 3 ? '' : 'loading="lazy"'} decoding="async">
         <span>Ver ficha</span>
       </button>
       <div class="product-copy"><p class="brand">${brand}</p><h3>${name}</h3>
@@ -89,7 +90,9 @@ function renderDetail(direction = 0) {
   position.innerHTML = `<span aria-hidden="true"><strong>${detailIndex + 1}</strong> / ${visible.length}</span><span class="sr-only">Perfume ${detailIndex + 1} de ${visible.length}: ${escapeHTML(name)}</span>`;
   for (const button of detailDialog.querySelectorAll('[data-perfume-step]')) button.disabled = visible.length < 2;
   detailContent.innerHTML = `
-    <div class="perfume-stage"><img class="perfume-photo" width="480" height="480" src="/images/shop/${id}.webp" alt="${escapeHTML(`${brand} ${name}`)}"></div>
+    <div class="perfume-stage"><img class="perfume-photo" width="640" height="640"
+      src="${campaignImage(id)}" srcset="${campaignImage(id)} 640w, ${campaignImage(id, true)} 1000w"
+      sizes="(max-width: 640px) 82vw, 440px" alt="${escapeHTML(`${brand} ${name}`)}"></div>
     <div class="perfume-copy">
       <p class="brand">${brand}</p>
       <h2 id="perfume-title">${name}</h2>
@@ -113,7 +116,7 @@ function renderDetail(direction = 0) {
   }
   if (visible.length > 1) {
     const neighbor = visible[(detailIndex + (direction || 1) + visible.length) % visible.length];
-    new Image().src = `/images/shop/${neighbor.id}.webp`;
+    new Image().src = campaignImage(neighbor.id);
   }
 }
 
