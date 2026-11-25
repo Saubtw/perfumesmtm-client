@@ -3,47 +3,164 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#211611">
-    <meta name="description" content="Catálogo de Perfumes MTM. Encuentra tu fragancia, consulta su precio y haz tu pedido por mensaje directo de Instagram.">
+    <meta name="theme-color" content="#1a110d">
+    <meta name="description" content="Catálogo de Perfumes MTM. Perfumes réplica 1:1 de alta calidad. Explora cada ficha olfativa y haz tu pedido por mensaje directo de Instagram.">
     <title>Perfumes MTM | Catálogo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..600&display=swap" rel="stylesheet">
   </head>
   <body>
     <header class="site-bar">
       <div class="wrap">
-        <a class="wordmark" href="./"><img src="/images/perfumes-mtm-crema-cobre.svg" width="898" height="730" alt="Perfumes MTM"></a>
-        <nav class="site-nav" aria-label="Navegación principal"><a href="#catalogo">Catálogo</a></nav>
+        <a class="wordmark" href="./" aria-label="Perfumes MTM, inicio">
+          <img src="/images/perfumes-mtm-crema-cobre.svg" width="898" height="730" alt="Perfumes MTM">
+        </a>
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="#catalogo">Catálogo</a>
+          <a href="#como-pedir">Cómo pedir</a>
+        </nav>
         <div class="header-actions">
-          <a id="instagram" href="https://ig.me/m/perfumes.mtm" target="_blank" rel="noopener noreferrer" aria-label="Abrir chat con Perfumes MTM en Instagram">Instagram</a>
-          <button id="cart-button" type="button" aria-haspopup="dialog">Carrito <span id="cart-count">0</span></button>
+          <a id="instagram" class="header-cta" href="https://ig.me/m/perfumes.mtm" target="_blank" rel="noopener noreferrer" aria-label="Abrir chat con Perfumes MTM en Instagram">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><path d="M17.2 6.8h.01" stroke-width="2.2"/></svg>
+            <span class="header-cta-full">Pedir por Instagram</span>
+            <span class="header-cta-short" aria-hidden="true">Instagram</span>
+          </a>
         </div>
       </div>
     </header>
+
     <main class="wrap">
       <section class="catalog-intro" aria-labelledby="intro-title">
         <div class="catalog-title">
+          <p class="eyebrow eyebrow-dark">Colección disponible · Perfumes MTM</p>
           <h1 id="intro-title">Descubre tu próxima fragancia</h1>
-          <p class="intro">Perfumes réplica 1:1 de alta calidad.</p>
-          <a class="catalog-cta" href="#catalogo">Ver catálogo</a>
+          <p class="intro">Perfumes réplica 1:1 de alta calidad. Consulta las notas olfativas de cada pieza y realiza tu pedido directamente por mensaje de Instagram.</p>
+          <div class="hero-actions">
+            <a class="catalog-cta" href="#catalogo">
+              <span>Explorar catálogo</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </a>
+            <a class="hero-secondary" href="https://ig.me/m/perfumes.mtm" target="_blank" rel="noopener noreferrer">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><path d="M17.2 6.8h.01" stroke-width="2.2"/></svg>
+              <span>Mensaje directo</span>
+            </a>
+          </div>
+          <dl class="hero-metrics" aria-label="Resumen de la tienda">
+            <div>
+              <dt>Fragancias</dt>
+              <dd id="hero-count">14</dd>
+            </div>
+            <div>
+              <dt>Calidad</dt>
+              <dd>Réplica 1:1</dd>
+            </div>
+            <div>
+              <dt>Pedidos por DM</dt>
+              <dd>Instagram</dd>
+            </div>
+          </dl>
         </div>
-        <img class="catalog-photo" src="/images/campana/9pmrebel.webp"
-          srcset="/images/campana/9pmrebel.webp 640w, /images/campana/9pmrebel-1000.webp 1000w"
-          sizes="(max-width: 640px) 90vw, 474px" width="640" height="640"
-          alt="Afnan 9PM Rebel, con piña, mandarina y cedro" fetchpriority="high">
+        <div class="catalog-media">
+          <button type="button" class="hero-media-trigger" data-open-id="9pmrebel" aria-haspopup="dialog" aria-label="Ver ficha olfativa de Afnan 9PM Rebel">
+            <img class="catalog-photo" src="/images/campana/9pmrebel.webp"
+              srcset="/images/campana/9pmrebel.webp 640w, /images/campana/9pmrebel-1000.webp 1000w"
+              sizes="(max-width: 640px) 92vw, 480px" width="640" height="640"
+              alt="Afnan 9PM Rebel, con piña, mandarina y cedro" fetchpriority="high">
+          </button>
+        </div>
       </section>
+
       <section id="catalogo" aria-labelledby="catalog-title">
         <div class="toolbar">
-          <div><h2 id="catalog-title">Catálogo de perfumes</h2><p id="result-count" aria-live="polite"></p></div>
+          <div class="toolbar-heading">
+            <p class="eyebrow">Selección actual</p>
+            <h2 id="catalog-title">Catálogo de perfumes</h2>
+            <p id="result-count" aria-live="polite"></p>
+          </div>
           <form id="search-form" role="search">
-            <label class="sr-only" for="search">Buscar perfume o marca</label>
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 4 4"/></svg>
-            <input id="search" type="search" placeholder="Buscar perfume o marca" autocomplete="off">
+            <label class="sr-only" for="search">Buscar perfume, marca o nota olfativa</label>
+            <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 4 4"/></svg>
+            <input id="search" type="search" placeholder="Buscar perfume, marca o nota..." autocomplete="off">
+            <button id="clear-search" type="button" aria-label="Limpiar búsqueda" hidden>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="m7 7 10 10M17 7 7 17"/></svg>
+            </button>
           </form>
         </div>
+
+        <div class="catalog-controls">
+          <div id="family-filters" class="filter-pills" role="group" aria-label="Filtrar por perfil olfativo"></div>
+          <label class="sort-control">
+            <span>Ordenar</span>
+            <select id="sort-select" aria-label="Ordenar perfumes">
+              <option value="featured">Destacados</option>
+              <option value="price-asc">Precio: menor a mayor</option>
+              <option value="price-desc">Precio: mayor a menor</option>
+              <option value="brand">Marca (A–Z)</option>
+            </select>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7 10 5 5 5-5"/></svg>
+          </label>
+        </div>
+
         <div id="shop-grid" class="grid"></div>
-        <p id="no-results" hidden>No encontramos perfumes con esa búsqueda.</p>
+        <div id="no-results" class="empty-state" hidden>
+          <p>No encontramos perfumes con esa búsqueda o filtro.</p>
+          <button id="reset-filters" type="button">Ver todo el catálogo</button>
+        </div>
         <p id="shop-status" class="sr-only" role="status"></p>
       </section>
+
+      <section id="como-pedir" class="how-to-order" aria-labelledby="how-title">
+        <div class="how-header">
+          <div>
+            <p class="eyebrow">Atención personalizada</p>
+            <h2 id="how-title">¿Cómo hacer tu pedido?</h2>
+          </div>
+          <p class="how-lead">Elige tu fragancia favorita, revisa su perfil olfativo y te atendemos directamente por Instagram.</p>
+        </div>
+        <ol class="order-steps">
+          <li>
+            <span class="step-index" aria-hidden="true">01</span>
+            <h3>Explora el catálogo</h3>
+            <p>Filtra por perfil olfativo o busca por marca, nombre o nota para encontrar el aroma que va contigo.</p>
+          </li>
+          <li>
+            <span class="step-index" aria-hidden="true">02</span>
+            <h3>Consulta la ficha olfativa</h3>
+            <p>Abre cualquier perfume para ver su pirámide de notas, intensidad y ocasiones recomendadas.</p>
+          </li>
+          <li>
+            <span class="step-index" aria-hidden="true">03</span>
+            <h3>Escríbenos por Instagram</h3>
+            <p>Toca “Pedir por Instagram” o copia la consulta lista para pegar en nuestro chat directo y confirmar disponibilidad.</p>
+          </li>
+        </ol>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <a class="wordmark" href="./" aria-label="Perfumes MTM, volver arriba">
+            <img src="/images/perfumes-mtm-crema-cobre.svg" width="898" height="730" alt="Perfumes MTM">
+          </a>
+          <p>Perfumes réplica 1:1 de alta calidad. Atención y pedidos por mensaje directo de Instagram.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#catalogo">Catálogo</a>
+          <a href="#como-pedir">Cómo pedir</a>
+          <a class="footer-instagram" href="https://ig.me/m/perfumes.mtm" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><path d="M17.2 6.8h.01" stroke-width="2.2"/></svg>
+            <span>@perfumes.mtm</span>
+          </a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <p>© Perfumes MTM</p>
+        <p>Precios expresados en MXN</p>
+      </div>
+    </footer>
+
     <dialog id="perfume-detail" aria-labelledby="perfume-title">
       <div class="perfume-panel">
         <header class="perfume-bar">
@@ -51,29 +168,17 @@
             <button type="button" data-perfume-step="-1" aria-label="Perfume anterior" aria-keyshortcuts="ArrowLeft" title="Perfume anterior (←)"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button>
             <span id="perfume-position" aria-live="polite" aria-atomic="true"></span>
             <button type="button" data-perfume-step="1" aria-label="Perfume siguiente" aria-keyshortcuts="ArrowRight" title="Perfume siguiente (→)"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button>
+            <span class="perfume-key-hint" aria-hidden="true">Usa ← →</span>
           </nav>
-          <form method="dialog"><button aria-label="Cerrar ficha" title="Cerrar ficha (Esc)" autofocus><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form>
+          <form method="dialog">
+            <button aria-label="Cerrar ficha" title="Cerrar ficha (Esc)" autofocus><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+          </form>
         </header>
         <div id="perfume-content"></div>
         <footer class="perfume-footer" id="perfume-order"></footer>
       </div>
     </dialog>
-    <dialog id="cart" aria-labelledby="cart-title">
-      <header class="cart-header">
-        <h2 id="cart-title">Tu carrito</h2>
-        <form method="dialog"><button id="close-cart" aria-label="Cerrar carrito">×</button></form>
-      </header>
-      <div id="cart-items"></div>
-      <footer class="cart-footer">
-        <p><span>Total</span><strong id="cart-total"></strong></p>
-        <div class="cart-contact" hidden>
-          <button id="copy-order" type="button">Copiar pedido</button>
-          <a id="checkout" class="checkout" target="_blank" rel="noopener noreferrer">Abrir chat en Instagram</a>
-        </div>
-        <p id="copy-status" role="status"></p>
-        <textarea id="order-summary" aria-label="Resumen del pedido" rows="4" readonly hidden></textarea>
-      </footer>
-    </dialog>
+
     <script type="module" src="/src/boot.js"></script>
   </body>
 </html>
